@@ -2,7 +2,7 @@ import express from "express";
 import { ApolloServer, gql } from "apollo-server-express";
 import cors from "cors";
 
-import models, { sequelize } from "./models";
+import models from "./models";
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
 
@@ -15,6 +15,7 @@ const server = new ApolloServer({
   context: {
     models,
     // me: models.users[1],
+    secret: process.env.SECRET,
   },
 });
 
@@ -22,7 +23,7 @@ server.applyMiddleware({ app, path: "/graphql" });
 
 const PORT = process.env.PORT || 4040;
 
-sequelize
+models.sequelize
   .sync()
   .then(() =>
     app.listen(PORT, () => {

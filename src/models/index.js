@@ -15,6 +15,7 @@ Object.keys(models).forEach((modelName) => {
   }
 });
 
-export { sequelize };
+models.sequelize = sequelize;
+models.Sequelize = Sequelize;
 
 export default models;
