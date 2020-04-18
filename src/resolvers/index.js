@@ -1,25 +1,30 @@
-import { AuthenticationError, UserInputError } from "apollo-server";
+import {
+  AuthenticationError,
+  UserInputError,
+  ForbiddenError,
+} from "apollo-server";
 import "dotenv/config";
-import jwt from "jsonwebtoken";
 
-const createToken = async (user, secret, expiresIn) => {
-  const { id, email, name } = user;
-  return await jwt.sign({ id, email, name }, secret, expiresIn);
-};
+import { createToken } from "../utils/jwt";
 
 const resolvers = {
   Query: {
     async user(parent, { id }, { models }) {
       return models.User.findOne({ where: { id } });
     },
-    async getAllUsers(parent, { models }) {
+    async getAllUsers(parent, args, { models, user }) {
+      if (!user) throw new ForbiddenError("Not authenticated.");
       return models.User.findAll();
     },
+
+    async findExpenses(parent, args, { models, user }) {},
+
+    async findAllExpenses(parent, args, { models, user }) {},
   },
 
   Mutation: {
     async createUser(parent, { name, email, password }, { models, secret }) {
-      const user = models.User.create({
+      const user = await models.User.create({
         name,
         email,
         password,
@@ -27,19 +32,25 @@ const resolvers = {
       return { token: createToken(user, secret, "30m") };
     },
 
-    async signIn(parent, { email, password }, { models }) {
-      const user = models.User.findOne({
+    async signIn(parent, { email, password }, { models, secret }) {
+      const user = await models.User.findOne({
         where: {
           email,
         },
       });
 
-      if (!user)
-        throw new UserInputError("No user found with this login credentials.");
+      if (!user) throw new UserInputError("Invalid credentials.");
+
+      const isValid = await user.validatePassword(password);
+
+      if (!isValid) throw new AuthenticationError("Invalid credentials.");
+
+      return { token: createToken(user, secret, "30m") };
     },
 
-    async deleteUser(parent, { id }, { models }) {
-      return models.User.destroy({
+    async deleteUser(parent, { id }, { models, user }) {
+      if (!user) throw new ForbiddenError("Not authenticated.");
+      return await models.User.destroy({
         where: {
           id,
         },

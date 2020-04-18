@@ -7,6 +7,7 @@ const sequelize = new Sequelize(
 
 const models = {
   User: sequelize.import("./user"),
+  Expense: sequelize.import("./expense"),
 };
 
 Object.keys(models).forEach((modelName) => {

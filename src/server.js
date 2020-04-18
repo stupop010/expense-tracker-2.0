@@ -6,16 +6,22 @@ import models from "./models";
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
 
+import { getUser } from "./utils/jwt";
+
 const app = express();
 app.use(cors());
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: {
-    models,
-    // me: models.users[1],
-    secret: process.env.SECRET,
+  context: async ({ req }) => {
+    const user = await getUser(req);
+
+    return {
+      models,
+      user,
+      secret: process.env.SECRET,
+    };
   },
 });
 
