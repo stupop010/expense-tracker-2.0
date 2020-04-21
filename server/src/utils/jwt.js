@@ -3,7 +3,6 @@ import { AuthenticationError } from "apollo-server";
 
 export const getUser = async (req) => {
   const token = req.headers["x-token"];
-  console.log(token);
   if (token) {
     try {
       return await jwt.verify(token, process.env.SECRET);

@@ -10,8 +10,8 @@ const typeDefs = gql`
 
   type Expense {
     id: Int!
-    userId: Int!
     name: String!
+    userId: Int!
   }
 
   type Token {
@@ -22,7 +22,7 @@ const typeDefs = gql`
     user(id: Int!): User
     getAllUsers: [User]
 
-    findExpenses: [Expense]
+    findExpense(id: Int!): Expense
     findAllExpenses: [Expense]
   }
 
@@ -31,7 +31,8 @@ const typeDefs = gql`
     signIn(email: String!, password: String!): Token!
     deleteUser(id: Int!): Boolean!
 
-    createExpense(name: String!): Expense
+    createExpense(name: String!): Expense!
+    editExpense(name: String, id: Int!): Expense!
     deleteExpense(id: Int!): Boolean!
   }
 `;
