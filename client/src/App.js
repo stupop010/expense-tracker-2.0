@@ -1,33 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useApolloClient } from "@apollo/react-hooks";
 
 import "./App.css";
 import HelmetHead from "./components/Helmet";
 import StyleTheme from "./components/StyleTheme";
 import Layout from "./components/Layout";
 
-// const SIGN_IN = gql`
-//   {
-//     getAllUsers {
-//       name
-//       email
-//       id
-//     }
-//   }
-// `;
-
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
+const FECTH_USER = gql`
+  {
+    user {
+      name
+      email
+      id
+    }
   }
 `;
 
 function App() {
-  const { data, loading, error } = useQuery(IS_LOGGED_IN);
-  console.log(data);
+  const client = useApolloClient();
+
+  const { data, loading, error } = useQuery(FECTH_USER, {
+    onCompleted: () => client.writeData({ data: { isLoggedIn: true } }),
+  });
+
+  // console.log(data, "fetch user");
+
+  if (loading) return <div>Loading</div>;
+  // if (error) return <div>error</div>;
+
   return (
     <StyleTheme>
+      {}
       <HelmetHead />
       <Layout />
     </StyleTheme>

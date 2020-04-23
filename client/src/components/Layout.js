@@ -1,9 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import NavBar from "./NavBar/NavBar";
 import Dashboard from "../pages/Dashboard";
+import SignIn from "../pages/SignIn";
 import LandingPage from "../pages/LandingPage";
+import PrivateRoute from "./PrivateRoute";
 
 const Layout = () => {
   return (
@@ -12,11 +14,14 @@ const Layout = () => {
         <NavBar />
 
         <Switch>
+          <PrivateRoute path="/dashboard">
+            <Dashboard />
+          </PrivateRoute>
+          <Route path="/login">
+            <SignIn />
+          </Route>
           <Route path="/">
             <LandingPage />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
           </Route>
         </Switch>
       </div>

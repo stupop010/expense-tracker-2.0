@@ -9,8 +9,9 @@ import { createToken } from "../utils/jwt";
 
 const resolvers = {
   Query: {
-    async user(parent, { id }, { models }) {
-      return models.User.findOne({ where: { id } });
+    async user(parent, args, { models, user }) {
+      if (!user) throw new ForbiddenError("Not authenticated.");
+      return models.User.findOne({ where: { id: user.id } });
     },
     async getAllUsers(parent, args, { models, user }) {
       // if (!user) throw new ForbiddenError("Not authenticated.");
@@ -40,7 +41,6 @@ const resolvers = {
     },
 
     async signIn(parent, { email, password }, { models, secret }) {
-      console.log("im called");
       const user = await models.User.findOne({
         where: {
           email,

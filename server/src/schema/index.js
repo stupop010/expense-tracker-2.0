@@ -19,7 +19,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    user(id: Int!): User
+    user: User
     getAllUsers: [User]
 
     findExpense(id: Int!): Expense
