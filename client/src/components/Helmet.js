@@ -15,6 +15,10 @@ const HelmetHead = () => {
         rel="stylesheet"
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
+        rel="stylesheet"
+      />
     </Helmet>
   );
 };

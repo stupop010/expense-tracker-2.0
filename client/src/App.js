@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { gql } from "apollo-boost";
 import { useQuery, useApolloClient } from "@apollo/react-hooks";
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { Box, Typography } from "@material-ui/core";
 
 import "./App.css";
 import HelmetHead from "./components/Helmet";
-import StyleTheme from "./components/StyleTheme";
 import Layout from "./components/Layout";
+
+import theme from "./theme";
 
 const FECTH_USER = gql`
   {
@@ -27,14 +31,14 @@ function App() {
   // console.log(data, "fetch user");
 
   if (loading) return <div>Loading</div>;
-  // if (error) return <div>error</div>;
+  if (error) console.log(error);
 
   return (
-    <StyleTheme>
-      {}
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <HelmetHead />
       <Layout />
-    </StyleTheme>
+    </ThemeProvider>
   );
 }
 

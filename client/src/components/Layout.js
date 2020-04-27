@@ -1,16 +1,27 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 import NavBar from "./NavBar/NavBar";
 import Dashboard from "../pages/Dashboard";
 import SignIn from "../pages/SignIn";
 import LandingPage from "../pages/LandingPage";
+import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
 
+const useStyles = makeStyles((theme) => ({
+  layout: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
+  },
+}));
+
 const Layout = () => {
+  const classes = useStyles();
   return (
     <Router>
-      <div>
+      <div className={classes.layout}>
         <NavBar />
 
         <Switch>
@@ -19,6 +30,9 @@ const Layout = () => {
           </PrivateRoute>
           <Route path="/login">
             <SignIn />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="/">
             <LandingPage />

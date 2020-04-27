@@ -47,11 +47,11 @@ const resolvers = {
         },
       });
 
-      if (!user) throw new UserInputError("Invalid credentials.");
+      if (!user) throw new Error("Invalid credentials.");
 
       const isValid = await user.validatePassword(password);
 
-      if (!isValid) throw new AuthenticationError("Invalid credentials.");
+      if (!isValid) throw new Error("Invalid credentials.");
 
       return { token: createToken(user, secret, "30m") };
     },
