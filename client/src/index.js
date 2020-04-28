@@ -24,6 +24,7 @@ const client = new ApolloClient({
   },
   onError: ({ networkError, graphQLErrors }) => {
     if (graphQLErrors) {
+      console.log(graphQLErrors);
       graphQLErrors.map(({ message, locations, path }) => {
         console.log(`GraphQL Error: ${message}`);
         cache.writeData({
@@ -35,7 +36,7 @@ const client = new ApolloClient({
       });
     }
     if (networkError) {
-      console.log(`Network Error: ${networkError.message}`);
+      console.log(`${networkError.message} heelo`);
     }
   },
 });
@@ -43,6 +44,7 @@ const client = new ApolloClient({
 cache.writeData({
   data: {
     isLoggedIn: false,
+    user: {},
   },
 });
 

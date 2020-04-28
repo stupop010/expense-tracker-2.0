@@ -12,11 +12,10 @@ import Layout from "./components/Layout";
 import theme from "./theme";
 
 const FECTH_USER = gql`
-  {
+  query fetchUser {
     user {
       name
       email
-      id
     }
   }
 `;
@@ -25,10 +24,14 @@ function App() {
   const client = useApolloClient();
 
   const { data, loading, error } = useQuery(FECTH_USER, {
-    onCompleted: () => client.writeData({ data: { isLoggedIn: true } }),
+    onCompleted: (data) => {
+      client.writeData({ data: { isLoggedIn: true }, user: { ...data.user } });
+      console.log(client);
+    },
   });
 
-  // console.log(data, "fetch user");
+  console.log(data, "fetch user");
+  console.log(loading);
 
   if (loading) return <div>Loading</div>;
   if (error) console.log(error);

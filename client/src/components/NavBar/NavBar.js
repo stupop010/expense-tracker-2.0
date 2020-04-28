@@ -9,12 +9,12 @@ import ListItem from "@material-ui/core/ListItem";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.lightDark,
-    height: console.log(theme),
+    height: "10vh",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: theme.spacing(1.5, 3),
+    padding: theme.spacing(0, 3),
   },
   title: {
     fontFamily: `'Bangers', cursive`,

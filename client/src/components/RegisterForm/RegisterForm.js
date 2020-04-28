@@ -1,18 +1,34 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 
 import { CssTextField, authFormStyles } from "../customStyles";
+import ErrorMessage from "../ErrorMessage";
 
-const RegisterForm = () => {
+const RegisterForm = ({ createUser, loading, error }) => {
+  const history = useHistory();
   const classes = authFormStyles();
   const [value, setValue] = useState({});
+  const [isError, setIsError] = useState("");
 
-  const submit = (e) => {
+  useEffect(() => {
+    if (error) setIsError(error);
+  }, [error]);
+
+  const submit = async (e) => {
     e.preventDefault();
-    console.log(value);
+    if (value.password !== value.password2) {
+      return setIsError("Passwords don't match");
+    }
+    const { name, email, password } = value;
+    try {
+      await createUser({ variables: { email, password, name } });
+      history.push("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onChange = (e) => {
@@ -27,6 +43,7 @@ const RegisterForm = () => {
       <div className={classes.formContainer}>
         <div className={classes.form}>
           <Typography variant="h3">Sign up</Typography>
+          {isError && <ErrorMessage error={isError} />}
           <form onSubmit={submit}>
             <CssTextField
               label="Name"

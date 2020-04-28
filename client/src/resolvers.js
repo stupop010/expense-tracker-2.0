@@ -3,11 +3,16 @@ import { gql } from "apollo-boost";
 export const typeDefs = gql`
   extend type Query {
     isLoggedIn: Boolean!
-    cartItems: [ID!]!
+    user: User!
   }
 
   extend type Launch {
     isInCart: Boolean!
+  }
+
+  type User {
+    name: String!
+    email: String!
   }
 
   extend type Mutation {

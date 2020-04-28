@@ -13,17 +13,15 @@ export const SIGN_IN = gql`
 `;
 
 const SignIn = () => {
-  const onCompleted = async ({ signIn }) => {
-    client.writeData({
-      data: {
-        isLoggedIn: true,
-      },
-    });
-    localStorage.setItem("token", signIn.token);
-  };
-
   const [signIn, { data, loading, error, client }] = useMutation(SIGN_IN, {
-    onCompleted,
+    onCompleted: ({ signIn }) => {
+      client.writeData({
+        data: {
+          isLoggedIn: true,
+        },
+      });
+      localStorage.setItem("token", signIn.token);
+    },
   });
 
   return <LoginForm signIn={signIn} error={error} loading={loading} />;

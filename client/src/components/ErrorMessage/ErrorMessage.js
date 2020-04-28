@@ -14,7 +14,12 @@ const useStyles = makeStyles((theme) => ({
 
 const ErrorMessage = ({ error }) => {
   const classes = useStyles();
-  const errMsg = error.message.replace("GraphQL error:", "").trim();
+  let errMsg;
+  if (error.message) {
+    errMsg = error.message.replace("GraphQL error:", "").trim();
+  } else {
+    errMsg = error.trim();
+  }
   return <div className={classes.error}>{errMsg}</div>;
 };
 

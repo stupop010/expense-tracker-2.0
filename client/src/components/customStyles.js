@@ -41,7 +41,7 @@ export const authFormStyles = makeStyles((theme) => ({
     background: "#292D3D",
     borderRadius: "3px",
     boxShadow: theme.shadows[4],
-    margin: theme.spacing(15, "auto"),
+    margin: theme.spacing(10, "auto"),
   },
   form: {
     padding: theme.spacing(5, 2),
