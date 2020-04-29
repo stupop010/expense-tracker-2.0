@@ -11,33 +11,42 @@ const resolvers = {
   Query: {
     async user(parent, args, { models, user }) {
       if (!user) throw new ForbiddenError("Not authenticated.");
-      return models.User.findOne({ where: { id: user.id } });
+
+      const u = await models.User.findOne({ where: { id: user.id } });
+      console.log(u.id);
+      return u;
     },
     async getAllUsers(parent, args, { models, user }) {
       // if (!user) throw new ForbiddenError("Not authenticated.");
-      return models.User.findAll();
+      return await models.User.findAll();
     },
 
     async findExpense(parent, { id }, { models, user }) {
       // if (!user) throw new ForbiddenError("Not authenticated.");
       const userId = 1;
-      return models.Expense.findOne({ where: { id, userId } });
+      return await models.Expense.findOne({ where: { id, userId } });
     },
 
     async findAllExpenses(parent, args, { models, user }) {
       // if (!user) throw new ForbiddenError("Not authenticated.");
-      return models.Expense.findAll();
+      return await models.Expense.findAll();
     },
   },
 
   Mutation: {
     async createUser(parent, { name, email, password }, { models, secret }) {
-      const user = await models.User.create({
-        name,
-        email,
-        password,
+      const [user, created] = await models.User.findOrCreate({
+        where: { email },
+        defaults: {
+          name,
+          email,
+          password,
+        },
       });
-      return { token: createToken(user, secret, "30m") };
+
+      if (created) return { token: createToken(user, secret, "30m") };
+
+      if (user) throw new Error("Email already in use");
     },
 
     async signIn(parent, { email, password }, { models, secret }) {
