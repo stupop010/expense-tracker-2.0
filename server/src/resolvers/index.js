@@ -44,7 +44,8 @@ const resolvers = {
         },
       });
 
-      if (created) return { token: createToken(user, secret, "30m") };
+      if (created)
+        return { ...userdataValues, token: createToken(user, secret, "30m") };
 
       if (user) throw new Error("Email already in use");
     },
@@ -62,7 +63,7 @@ const resolvers = {
 
       if (!isValid) throw new Error("Invalid credentials.");
 
-      return { token: createToken(user, secret, "30m") };
+      return { ...user.dataValues, token: createToken(user, secret, "30m") };
     },
 
     async deleteUser(parent, { id }, { models, user }) {

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ApolloClient, { InMemoryCache } from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import { typeDefs, resolvers } from "./resolvers";
 
 import App from "./App";
 
@@ -30,15 +31,18 @@ const client = new ApolloClient({
         cache.writeData({
           data: {
             isLoggedIn: false,
+            user: {},
           },
         });
         return localStorage.removeItem("token");
       });
     }
     if (networkError) {
-      console.log(`${networkError.message} heelo`);
+      console.log(`${networkError.message}`);
     }
   },
+  typeDefs,
+  resolvers,
 });
 
 cache.writeData({

@@ -7,6 +7,8 @@ import LoginForm from "../components/LoginForm";
 export const SIGN_IN = gql`
   mutation signIn($email: String!, $password: String!) {
     signIn(email: $email, password: $password) {
+      name
+      email
       token
     }
   }
@@ -18,6 +20,10 @@ const SignIn = () => {
       client.writeData({
         data: {
           isLoggedIn: true,
+          user: {
+            name: signIn.name,
+            email: signIn.email,
+          },
         },
       });
       localStorage.setItem("token", signIn.token);

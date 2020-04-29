@@ -6,12 +6,13 @@ import Typography from "@material-ui/core/Typography";
 import LockIcon from "@material-ui/icons/Lock";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 
-import { CssTextField, authFormStyles } from "../customStyles";
+// import { CssTextField, authFormStyles } from "../customStyles";
 import ErrorMessage from "../ErrorMessage";
 
 const LoginForm = ({ signIn, loading, error }) => {
   const history = useHistory();
-  const classes = authFormStyles();
+  // const classes = authFormStyles();
+  const classes = {};
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -40,7 +41,7 @@ const LoginForm = ({ signIn, loading, error }) => {
               Use <span>admin@devias.io</span> and password <span>admin</span>
             </p>
           </div>
-          <form onSubmit={submit}>
+          {/* <form onSubmit={submit}>
             <CssTextField
               label="Email Address"
               variant="outlined"
@@ -62,7 +63,7 @@ const LoginForm = ({ signIn, loading, error }) => {
             <button type="submit" className={classes.btn}>
               log in
             </button>
-          </form>
+          </form> */}
           <Divider />
           <Link to="/register" className={classes.link}>
             Create new account

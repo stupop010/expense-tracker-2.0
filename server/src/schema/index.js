@@ -6,6 +6,7 @@ const typeDefs = gql`
     name: String!
     email: String!
     password: String!
+    token: String!
   }
 
   type Expense {
@@ -27,8 +28,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(name: String!, email: String!, password: String!): Token!
-    signIn(email: String!, password: String!): Token!
+    createUser(name: String!, email: String!, password: String!): User!
+    signIn(email: String!, password: String!): User!
     deleteUser(id: Int!): Boolean!
 
     createExpense(name: String!): Expense!

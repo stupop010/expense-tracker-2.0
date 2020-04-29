@@ -4,12 +4,13 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 
-import { CssTextField, authFormStyles } from "../customStyles";
+// import { CssTextField, authFormStyles } from "../customStyles";
 import ErrorMessage from "../ErrorMessage";
 
 const RegisterForm = ({ createUser, loading, error }) => {
   const history = useHistory();
-  const classes = authFormStyles();
+  // const classes = authFormStyles();
+  const classes = {};
   const [value, setValue] = useState({});
   const [isError, setIsError] = useState("");
 
@@ -44,7 +45,7 @@ const RegisterForm = ({ createUser, loading, error }) => {
         <div className={classes.form}>
           <Typography variant="h3">Sign up</Typography>
           {isError && <ErrorMessage error={isError} />}
-          <form onSubmit={submit}>
+          {/* <form onSubmit={submit}>
             <CssTextField
               label="Name"
               variant="outlined"
@@ -80,7 +81,7 @@ const RegisterForm = ({ createUser, loading, error }) => {
             <button type="submit" className={classes.btn}>
               create account
             </button>
-          </form>
+          </form> */}
           <Divider />
           <Link to="/login" className={classes.link}>
             Have a account?

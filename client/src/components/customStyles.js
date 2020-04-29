@@ -1,23 +1,71 @@
 import { withStyles, makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
 
-export const CssTextField = withStyles({
+// export const CssTextField = withStyles({
+//   root: {
+//     "& input": {
+//       color: "white",
+//     },
+//     "& label": {
+//       color: "white",
+//     },
+//     "& label.Mui-focused": {
+//       color: "#A67CF8",
+//     },
+//     "& .MuiOutlinedInput-root": {
+//       "& fieldset": {
+//         borderColor: "#9598A3",
+//       },
+//       "&:hover fieldset": {
+//         borderColor: "#9598A3",
+//       },
+//       "&.Mui-focused fieldset": {
+//         borderColor: "#A67CF8",
+//       },
+//     },
+//   },
+// })(TextField);
+
+// export const ExpenseInput = withStyles({
+//   root: {
+//     "& input": {
+//       color: "#9699A4",
+//     },
+//     "& label": {
+//       color: "#9699A4",
+//     },
+//     "& label.Mui-focused": {
+//       color: "#A67CF8",
+//     },
+//     "& .MuiOutlinedInput-root": {
+//       "& fieldset": {
+//         borderColor: "#9699A4",
+//       },
+//       "&:hover fieldset": {
+//         borderColor: "#9598A3",
+//       },
+//       "&.Mui-focused fieldset": {
+//         borderColor: "#A67CF8",
+//       },
+//     },
+//   },
+// })(TextField);
+
+export const CategoriesSelect = withStyles({
   root: {
     "& input": {
-      color: "white",
+      color: "#9699A4",
     },
     "& label": {
-      color: "white",
+      color: "#9699A4",
     },
     "& label.Mui-focused": {
       color: "#A67CF8",
     },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#A67CF8",
-    },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "#9598A3",
+        borderColor: "#9699A4",
       },
       "&:hover fieldset": {
         borderColor: "#9598A3",
@@ -27,7 +75,7 @@ export const CssTextField = withStyles({
       },
     },
   },
-})(TextField);
+})(FormControl);
 
 export const authFormStyles = makeStyles((theme) => ({
   root: {

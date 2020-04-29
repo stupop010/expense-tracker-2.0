@@ -13,6 +13,7 @@ export const typeDefs = gql`
   type User {
     name: String!
     email: String!
+    token: String!
   }
 
   extend type Mutation {
