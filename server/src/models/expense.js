@@ -9,6 +9,10 @@ const expense = (sequelize, DataTypes) => {
     },
   });
 
+  Expense.associate = (models) => {
+    Expense.belongsTo(models.User);
+  };
+
   return Expense;
 };
 

@@ -11,6 +11,11 @@ const useStyles = makeStyles((theme) => ({
     "& form": {
       display: "flex",
       flexDirection: "column",
+      maxWidth: "640px",
+      width: "100%",
+      "& > *": {
+        margin: theme.spacing(2, 0),
+      },
     },
   },
 }));

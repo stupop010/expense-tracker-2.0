@@ -26,6 +26,12 @@ const user = (sequelize, DataTypes) => {
     },
   });
 
+  User.associate = (models) => {
+    User.hasMany(models.Expense, {
+      foreignKey: "userId",
+    });
+  };
+
   User.beforeCreate(async (user) => {
     user.password = await user.generatePasswordHash();
   });

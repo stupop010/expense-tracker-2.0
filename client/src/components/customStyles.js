@@ -2,68 +2,50 @@ import { withStyles, makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 
-// export const CssTextField = withStyles({
-//   root: {
-//     "& input": {
-//       color: "white",
-//     },
-//     "& label": {
-//       color: "white",
-//     },
-//     "& label.Mui-focused": {
-//       color: "#A67CF8",
-//     },
-//     "& .MuiOutlinedInput-root": {
-//       "& fieldset": {
-//         borderColor: "#9598A3",
-//       },
-//       "&:hover fieldset": {
-//         borderColor: "#9598A3",
-//       },
-//       "&.Mui-focused fieldset": {
-//         borderColor: "#A67CF8",
-//       },
-//     },
-//   },
-// })(TextField);
-
-// export const ExpenseInput = withStyles({
-//   root: {
-//     "& input": {
-//       color: "#9699A4",
-//     },
-//     "& label": {
-//       color: "#9699A4",
-//     },
-//     "& label.Mui-focused": {
-//       color: "#A67CF8",
-//     },
-//     "& .MuiOutlinedInput-root": {
-//       "& fieldset": {
-//         borderColor: "#9699A4",
-//       },
-//       "&:hover fieldset": {
-//         borderColor: "#9598A3",
-//       },
-//       "&.Mui-focused fieldset": {
-//         borderColor: "#A67CF8",
-//       },
-//     },
-//   },
-// })(TextField);
-
-export const CategoriesSelect = withStyles({
+export const CssTextField = withStyles({
   root: {
+    "& input": {
+      color: "white",
+    },
+    "& label": {
+      color: "white",
+    },
+    "& label.Mui-focused": {
+      color: "#A67CF8",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#9598A3",
+      },
+      "&:hover fieldset": {
+        borderColor: "#9598A3",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#A67CF8",
+      },
+    },
+  },
+})(TextField);
+
+export const ExpenseInput = withStyles({
+  root: {
+    "& textarea": {
+      color: "#9699A4",
+    },
     "& input": {
       color: "#9699A4",
     },
     "& label": {
       color: "#9699A4",
     },
+    "& p": {
+      color: "#9699A4",
+    },
     "& label.Mui-focused": {
       color: "#A67CF8",
     },
     "& .MuiOutlinedInput-root": {
+      color: "#9699A4",
       "& fieldset": {
         borderColor: "#9699A4",
       },
@@ -74,8 +56,11 @@ export const CategoriesSelect = withStyles({
         borderColor: "#A67CF8",
       },
     },
+    "& svg": {
+      color: "#9598A3",
+    },
   },
-})(FormControl);
+})(TextField);
 
 export const authFormStyles = makeStyles((theme) => ({
   root: {
@@ -102,6 +87,9 @@ export const authFormStyles = makeStyles((theme) => ({
       flexDirection: "column",
       justifyContent: "center",
       margin: theme.spacing(2, 0),
+      "& button": {
+        marginTop: theme.spacing(2),
+      },
     },
     "& hr": {
       marginBottom: theme.spacing(1.5),
@@ -131,21 +119,6 @@ export const authFormStyles = makeStyles((theme) => ({
     },
     "& p span": {
       fontWeight: 600,
-    },
-  },
-  btn: {
-    backgroundColor: theme.palette.primary.main,
-    padding: theme.spacing(1.3),
-    fontSize: "1rem",
-    fontWeight: 500,
-    color: theme.palette.common.white,
-    textTransform: "uppercase",
-    border: "none",
-    borderRadius: "4px",
-    marginTop: theme.spacing(2),
-    "&:hover": {
-      cursor: "pointer",
-      backgroundColor: "#936edd",
     },
   },
   link: {

@@ -20,7 +20,7 @@ const SignIn = () => {
       client.writeData({
         data: {
           isLoggedIn: true,
-          user: {
+          isUser: {
             name: signIn.name,
             email: signIn.email,
           },

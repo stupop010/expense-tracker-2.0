@@ -12,7 +12,7 @@ const typeDefs = gql`
   type Expense {
     id: Int!
     name: String!
-    userId: Int!
+    # userId: Int!
   }
 
   type Token {
@@ -32,7 +32,12 @@ const typeDefs = gql`
     signIn(email: String!, password: String!): User!
     deleteUser(id: Int!): Boolean!
 
-    createExpense(name: String!): Expense!
+    createExpense(
+      name: String!
+      desc: String!
+      price: String!
+      category: String!
+    ): Expense!
     editExpense(name: String, id: Int!): Expense!
     deleteExpense(id: Int!): Boolean!
   }
