@@ -25,16 +25,15 @@ const client = new ApolloClient({
   },
   onError: ({ networkError, graphQLErrors }) => {
     if (graphQLErrors) {
-      console.log(graphQLErrors);
       graphQLErrors.map(({ message, locations, path }) => {
         console.log(`GraphQL Error: ${message}`);
         cache.writeData({
           data: {
             isLoggedIn: false,
-            user: {},
+            // user: {},
           },
         });
-        return localStorage.removeItem("token");
+        // return localStorage.removeItem("token");
       });
     }
     if (networkError) {

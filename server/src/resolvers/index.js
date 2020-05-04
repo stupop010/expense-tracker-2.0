@@ -80,10 +80,12 @@ const resolvers = {
       { models, user }
     ) {
       // if (!user) throw new ForbiddenError("Not authenticated.");
-      console.log("im here");
 
       const expense = await models.Expense.create({
         name,
+        desc,
+        price,
+        category,
         userId: user.id,
       });
 

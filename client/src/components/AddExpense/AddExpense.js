@@ -6,6 +6,8 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Snackbar from "@material-ui/core/Snackbar";
+import Slide from "@material-ui/core/Slide";
 
 import PurpleBtn from "../PurpleBtn";
 import ErrorMessage from "../ErrorMessage";
@@ -34,13 +36,23 @@ export const CREATE_EXPENSE = gql`
 `;
 
 const AddExpense = () => {
-  const [createExpense, { data, loading, error }] = useMutation(CREATE_EXPENSE);
+  const [createExpense, { data, loading }] = useMutation(CREATE_EXPENSE, {
+    onCompleted: ({ createExpense }) => {
+      setCategory("");
+      setError("");
+      setValue({ name: "", desc: "", price: "" });
+      setOpen(true);
+    },
+  });
+
   const [value, setValue] = useState({
     name: "",
     desc: "",
     price: "",
   });
   const [category, setCategory] = useState("");
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState("");
   const classes = useStyles();
 
   const handleChange = (e) => {
@@ -55,9 +67,11 @@ const AddExpense = () => {
     try {
       await createExpense({ variables: { ...value, category } });
     } catch (error) {
-      console.log(error);
+      if (error.message.includes("Validation error")) {
+        setError("All fields must be required");
+      }
+      setError(error.message);
     }
-    console.log(value);
   };
 
   return (
@@ -67,6 +81,7 @@ const AddExpense = () => {
       <Box className={classes.form}>
         <form onSubmit={submit}>
           <ExpenseInput
+            required
             id="outlined"
             label="Expense name"
             variant="outlined"
@@ -75,6 +90,7 @@ const AddExpense = () => {
             onChange={handleChange}
           />
           <ExpenseInput
+            required
             label="Description"
             multiline
             rows={4}
@@ -84,6 +100,7 @@ const AddExpense = () => {
             onChange={handleChange}
           />
           <ExpenseInput
+            required
             variant="outlined"
             select
             id="category"
@@ -103,6 +120,7 @@ const AddExpense = () => {
           </ExpenseInput>
 
           <ExpenseInput
+            required
             id="outlined"
             label="Price"
             variant="outlined"
@@ -119,6 +137,14 @@ const AddExpense = () => {
           <PurpleBtn type="submit">Create Expense</PurpleBtn>
         </form>
       </Box>
+      <Snackbar
+        open={open}
+        onClose={() => setOpen(false)}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        TransitionComponent={(props) => <Slide {...props} direction="up" />}
+        message="Expense Added."
+      />
     </Box>
   );
 };

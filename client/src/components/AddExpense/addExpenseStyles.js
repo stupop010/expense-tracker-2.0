@@ -6,6 +6,9 @@ const useStyles = makeStyles((theme) => ({
     "& h2": {
       fontSize: "1.7rem",
     },
+    "& .MuiSnackbarContent-root": {
+      backgroundColor: theme.palette.primary.dark,
+    },
   },
   form: {
     "& form": {

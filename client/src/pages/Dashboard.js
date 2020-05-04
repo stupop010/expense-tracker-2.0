@@ -1,18 +1,12 @@
 import React from "react";
-import {
-  Switch,
-  Route,
-  useParams,
-  useRouteMatch,
-  useLocation,
-} from "react-router-dom";
+import { Switch, Route, useParams, useRouteMatch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
 import Menu from "../components/Menu";
-import DashboardBreadcrumbs from "../components/DashboardBreadcrumbs";
 import AddExpense from "../components/AddExpense";
+import ExpenseTable from "../components/ExpenseTable";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -23,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   dashboard: {
     backgroundColor: theme.palette.background.dark,
     padding: theme.spacing(3, 4),
+    overflow: "scroll",
   },
 }));
 
@@ -40,20 +35,18 @@ const Dashboard = () => {
   const classes = useStyles();
 
   let { path, url } = useRouteMatch();
-  const { pathname } = useLocation();
 
   return (
     <div className={classes.layout}>
       <Menu user={data.user} />
       <div className={classes.dashboard}>
-        <DashboardBreadcrumbs pathname={pathname} />
         <Switch>
           <Route exact path={path}>
             <h3>Please select a topic.</h3>
           </Route>
-          {/* <Route path={`${path}/report`}>
-            <p>h</p>
-          </Route> */}
+          <Route path={`${path}/expenses`}>
+            <ExpenseTable />
+          </Route>
           <Route path={`${path}/add-expense`}>
             <AddExpense />
           </Route>

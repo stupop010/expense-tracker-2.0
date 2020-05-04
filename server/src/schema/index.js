@@ -12,7 +12,10 @@ const typeDefs = gql`
   type Expense {
     id: Int!
     name: String!
-    # userId: Int!
+    price: String!
+    category: String!
+    desc: String!
+    userId: Int!
   }
 
   type Token {
