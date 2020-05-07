@@ -113,12 +113,13 @@ const resolvers = {
 
     async deleteExpense(parent, { id }, { models, user }) {
       // if (!user) throw new ForbiddenError("Not authenticated.");
-      return await models.Expense.destroy({
-        where: {
-          id,
-          userId: user.id,
-        },
-      });
+      // return await models.Expense.destroy({
+      //   where: {
+      //     id,
+      //     userId: user.id,
+      //   },
+      // });
+      console.log(id);
     },
   },
 };
