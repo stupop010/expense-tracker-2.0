@@ -29,12 +29,42 @@ const GET_USER = gql`
   }
 `;
 
+const FETCH_EXPENSES = gql`
+  query fetchExpenses {
+    findAllExpenses {
+      name
+      price
+      desc
+      category
+      id
+    }
+  }
+`;
+
 const Dashboard = () => {
   const { data, loading, error } = useQuery(GET_USER);
 
   const classes = useStyles();
 
   let { path, url } = useRouteMatch();
+
+  const {
+    data: expensesData,
+    loading: expensesLoading,
+    error: expensesError,
+    client,
+  } = useQuery(FETCH_EXPENSES, {
+    onCompleted: () => {
+      client.writeData({
+        data: {
+          expenses: expensesData.findAllExpenses,
+        },
+      });
+    },
+  });
+
+  if (loading) return null;
+  console.log(data);
 
   return (
     <div className={classes.layout}>

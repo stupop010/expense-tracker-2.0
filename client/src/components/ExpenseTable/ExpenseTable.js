@@ -21,17 +21,12 @@ import Modal from "../Modal";
 import DeleteExpenseActions from "./DeleteEpenseActions";
 import useStyles from "./ExpenseTableStyles";
 
-const FETCH_EXPENSES = gql`
-  query fetchExpenses {
-    findAllExpenses {
-      name
-      price
-      desc
-      category
-      id
-    }
+const CLIENT_EXPENSES = gql`
+  query clientExpenses {
+    expenses @client
   }
 `;
+
 export const DELETE_EXPENSE = gql`
   mutation deleteExpense($id: Int!) {
     deleteExpense(id: $id)
@@ -46,17 +41,27 @@ const ExpenseTable = () => {
   const { pathname } = useLocation();
   const classes = useStyles();
 
-  const { data, loading, error } = useQuery(FETCH_EXPENSES);
+  const { data, loading, error } = useQuery(CLIENT_EXPENSES);
 
   const [
     deleteExpense,
-    { data: deleteData, loading: deleteLoading, error: deleteError, client },
+    {
+      data: deleteData,
+      loading: deleteLoading,
+      error: deleteError,
+      client: deleteClient,
+    },
   ] = useMutation(DELETE_EXPENSE, {
     onCompleted: () => setOpen(false),
   });
 
-  if (loading) return <div>loading</div>;
+  if (loading || deleteLoading) return <div>loading</div>;
+
   const expenses = data.findAllExpenses;
+
+  console.log(data);
+
+  return <div>hello</div>;
 
   const handleModalOpen = (id) => {
     setCurrentExpense(id);
@@ -78,7 +83,6 @@ const ExpenseTable = () => {
 
   const handleDeleteExpense = async () => {
     try {
-      // console.log(currentExpense);
       await deleteExpense({ variables: { id: currentExpense } });
     } catch (error) {
       console.log(error);
