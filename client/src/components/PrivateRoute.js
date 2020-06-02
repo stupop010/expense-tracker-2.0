@@ -1,18 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
 
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
-`;
+import { UserContext } from "../context/userContext/UserState";
 
 // eslint-disable-next-line react/prop-types
 const PrivateRoute = ({ children, ...rest }) => {
-  const { data, loading, error } = useQuery(IS_LOGGED_IN);
-  const { isLoggedIn } = data;
+  const { isLoggedIn } = useContext(UserContext);
 
   return (
     <Route

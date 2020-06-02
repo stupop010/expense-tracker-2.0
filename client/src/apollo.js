@@ -1,11 +1,7 @@
-import ApolloClient, { InMemoryCache } from "apollo-boost";
-import { typeDefs, resolvers } from "./resolvers";
-
-const cache = new InMemoryCache();
+import ApolloClient from "apollo-boost";
 
 const client = new ApolloClient({
   uri: "http://localhost:4040/graphql",
-  cache,
   request: async (operation) => {
     const token = localStorage.getItem("token");
     try {
@@ -24,12 +20,12 @@ const client = new ApolloClient({
         console.log(`GraphQL Error: ${message}`);
         // console.log(cache.read());
         if (message.includes("Not authenticated.")) {
-          cache.writeData({
-            data: {
-              isLoggedIn: false,
-            },
-          });
-          return localStorage.removeItem("token");
+          //   cache.writeData({
+          //     data: {
+          //       isLoggedIn: false,
+          //     },
+          //   });
+          //   return localStorage.removeItem("token");
         }
       });
     }
@@ -37,22 +33,6 @@ const client = new ApolloClient({
       console.log(`${networkError.message}`);
     }
   },
-  //   clientState: {
-  //     defaults: {
-  //       isLoggedIn: false,
-  //       isUser: {},
-  //       expenses: [],
-  //     },
-  //     resolvers: {
-  //       Mutation: {
-  //         updateNetworkStatus: (_, { isConnected }, { cache }) => {
-  //           cache.writeData({ data: { isConnected } });
-  //           return null;
-  //         },
-  //       },
-  //     },
-  //   },
-  //   resolvers,
 });
 
 export default client;

@@ -39,7 +39,11 @@ const DashboardBreadcrumbs = ({ pathname, children }) => {
           //     </Typography>
           //   );
           // }
-          return <Link to={`/${path}`}>{path}</Link>;
+          return (
+            <Link to={`/${path}`} key={index}>
+              {path}
+            </Link>
+          );
         })}
       </Breadcrumbs>
       {children}

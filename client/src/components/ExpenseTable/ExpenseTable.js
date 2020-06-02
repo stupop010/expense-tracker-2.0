@@ -21,19 +21,13 @@ import Modal from "../Modal";
 import DeleteExpenseActions from "./DeleteEpenseActions";
 import useStyles from "./ExpenseTableStyles";
 
-const CLIENT_EXPENSES = gql`
-  query clientExpenses {
-    expenses @client
-  }
-`;
-
 export const DELETE_EXPENSE = gql`
   mutation deleteExpense($id: Int!) {
     deleteExpense(id: $id)
   }
 `;
 
-const ExpenseTable = () => {
+const ExpenseTable = ({ expenses, deleteContextExpense }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [open, setOpen] = useState(false);
@@ -41,27 +35,9 @@ const ExpenseTable = () => {
   const { pathname } = useLocation();
   const classes = useStyles();
 
-  const { data, loading, error } = useQuery(CLIENT_EXPENSES);
+  const [deleteExpense, { loading }] = useMutation(DELETE_EXPENSE);
 
-  const [
-    deleteExpense,
-    {
-      data: deleteData,
-      loading: deleteLoading,
-      error: deleteError,
-      client: deleteClient,
-    },
-  ] = useMutation(DELETE_EXPENSE, {
-    onCompleted: () => setOpen(false),
-  });
-
-  if (loading || deleteLoading) return <div>loading</div>;
-
-  const expenses = data.findAllExpenses;
-
-  console.log(data);
-
-  return <div>hello</div>;
+  if (loading) return <div>loading</div>;
 
   const handleModalOpen = (id) => {
     setCurrentExpense(id);
@@ -83,7 +59,8 @@ const ExpenseTable = () => {
 
   const handleDeleteExpense = async () => {
     try {
-      await deleteExpense({ variables: { id: currentExpense } });
+      // await deleteExpense({ variables: { id: currentExpense } });
+      deleteContextExpense(currentExpense);
     } catch (error) {
       console.log(error);
     }

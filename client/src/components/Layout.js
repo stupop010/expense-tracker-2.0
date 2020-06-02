@@ -25,12 +25,12 @@ const Layout = () => {
         <NavBar />
 
         <Switch>
-          {/* <PrivateRoute path="/dashboard">
+          <PrivateRoute path="/dashboard">
             <Dashboard />
-          </PrivateRoute> */}
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
+          </PrivateRoute>
+          {/* <Route path="/dashboard"> */}
+          {/* <Dashboard /> */}
+          {/* </Route> */}
           <Route path="/login">
             <SignIn />
           </Route>

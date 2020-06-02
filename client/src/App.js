@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { gql } from "apollo-boost";
 import { useQuery, useApolloClient } from "@apollo/react-hooks";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Box, Typography } from "@material-ui/core";
+
+import { UserContext } from "./context/userContext/UserState";
 
 import "./App.css";
 import HelmetHead from "./components/Helmet";
@@ -22,10 +23,11 @@ const FECTH_USER = gql`
 
 function App() {
   const client = useApolloClient();
+  const { updateUser } = useContext(UserContext);
 
   const { data, loading, error } = useQuery(FECTH_USER, {
     onCompleted: (data) => {
-      client.writeData({ data: { isLoggedIn: true }, user: { ...data.user } });
+      updateUser(data);
     },
   });
 

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Switch, Route, useParams, useRouteMatch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
+
+import { UserContext } from "../context/userContext/UserState";
+import { ExpenseContext } from "../context/expenseContext/ExpenseState";
 
 import Menu from "../components/Menu";
 import AddExpense from "../components/AddExpense";
@@ -21,14 +24,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GET_USER = gql`
-  query UserClient {
-    user @client {
-      name
-    }
-  }
-`;
-
 const FETCH_EXPENSES = gql`
   query fetchExpenses {
     findAllExpenses {
@@ -42,40 +37,35 @@ const FETCH_EXPENSES = gql`
 `;
 
 const Dashboard = () => {
-  const { data, loading, error } = useQuery(GET_USER);
+  // const { data, loading, error } = useQuery(GET_USER);
+  const { user } = useContext(UserContext);
+  const { fetchExpenses, expenses, deleteContextExpense } = useContext(
+    ExpenseContext
+  );
 
   const classes = useStyles();
 
   let { path, url } = useRouteMatch();
 
-  const {
-    data: expensesData,
-    loading: expensesLoading,
-    error: expensesError,
-    client,
-  } = useQuery(FETCH_EXPENSES, {
+  const { data, loading, client } = useQuery(FETCH_EXPENSES, {
     onCompleted: () => {
-      client.writeData({
-        data: {
-          expenses: expensesData.findAllExpenses,
-        },
-      });
+      fetchExpenses(data);
     },
   });
 
-  if (loading) return null;
-  console.log(data);
-
   return (
     <div className={classes.layout}>
-      <Menu user={data.user} />
+      <Menu user={user} />
       <div className={classes.dashboard}>
         <Switch>
           <Route exact path={path}>
             <h3>Please select a topic.</h3>
           </Route>
           <Route path={`${path}/expenses`}>
-            <ExpenseTable />
+            <ExpenseTable
+              expenses={expenses}
+              deleteContextExpense={deleteContextExpense}
+            />
           </Route>
           <Route path={`${path}/add-expense`}>
             <AddExpense />
