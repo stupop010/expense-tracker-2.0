@@ -27,7 +27,10 @@ const useStyles = makeStyles((theme) => ({
   nav: {
     padding: theme.spacing(2),
     color: theme.palette.common.lightGray,
-    // '& p'
+    "& a": {
+      color: "#76777a",
+      textDecoration: "none",
+    },
   },
 }));
 

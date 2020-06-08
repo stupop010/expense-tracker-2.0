@@ -25,9 +25,9 @@ function App() {
   const client = useApolloClient();
   const { updateUser } = useContext(UserContext);
 
-  const { data, loading, error } = useQuery(FECTH_USER, {
-    onCompleted: (data) => {
-      updateUser(data);
+  const { loading, error } = useQuery(FECTH_USER, {
+    onCompleted: ({ user }) => {
+      updateUser(user);
     },
   });
 

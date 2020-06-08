@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useLocation, Link } from "react-router-dom";
@@ -37,6 +37,10 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
 
   const [deleteExpense, { loading }] = useMutation(DELETE_EXPENSE);
 
+  const reverseExpense = useMemo(() => {
+    return expenses.reverse();
+  }, [expenses]);
+
   if (loading) return <div>loading</div>;
 
   const handleModalOpen = (id) => {
@@ -59,8 +63,9 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
 
   const handleDeleteExpense = async () => {
     try {
-      // await deleteExpense({ variables: { id: currentExpense } });
+      await deleteExpense({ variables: { id: currentExpense } });
       deleteContextExpense(currentExpense);
+      handleModalClose();
     } catch (error) {
       console.log(error);
     }
@@ -86,13 +91,13 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
-              ? expenses.slice(
+              ? reverseExpense.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-              : expenses
-            ).map((expense) => (
-              <TableRow key={expense.name}>
+              : reverseExpense
+            ).map((expense, index) => (
+              <TableRow key={index}>
                 <TableCell>{expense.name}</TableCell>
                 <TableCell style={{ width: 160 }} align="right">
                   £{expense.price}

@@ -9,6 +9,12 @@ import ListItem from "@material-ui/core/ListItem";
 
 import useStyles from "./menuStyles";
 
+const navActive = {
+  fontWeight: "bold",
+  color: "#c9cacc",
+  textDecoration: "underline",
+};
+
 const Menu = ({ user }) => {
   const classes = useStyles();
   const { name } = user;
@@ -27,15 +33,8 @@ const Menu = ({ user }) => {
               <Typography>Reports</Typography>
               <List>
                 <ListItem>
-                  <NavLink
-                    to="/dashboard"
-                    exact
-                    activeStyle={{
-                      fontWeight: "bold",
-                      color: "red",
-                    }}
-                  >
-                    hello
+                  <NavLink to="/dashboard" exact activeStyle={navActive}>
+                    Dashboard
                   </NavLink>
                 </ListItem>
               </List>
@@ -44,24 +43,12 @@ const Menu = ({ user }) => {
               <Typography>Expenses</Typography>
               <List>
                 <ListItem>
-                  <NavLink
-                    to="/dashboard/expenses"
-                    activeStyle={{
-                      fontWeight: "bold",
-                      color: "red",
-                    }}
-                  >
+                  <NavLink to="/dashboard/expenses" activeStyle={navActive}>
                     Expenses
                   </NavLink>
                 </ListItem>
                 <ListItem>
-                  <NavLink
-                    to="/dashboard/add-expense"
-                    activeStyle={{
-                      fontWeight: "bold",
-                      color: "red",
-                    }}
-                  >
+                  <NavLink to="/dashboard/add-expense" activeStyle={navActive}>
                     Add Expense
                   </NavLink>
                 </ListItem>

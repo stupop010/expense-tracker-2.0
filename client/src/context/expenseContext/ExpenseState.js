@@ -19,12 +19,17 @@ export const ExpenseProvider = ({ children }) => {
     dispatch({ type: "DELETE_EXPENSE", payload: id });
   };
 
+  const addContextExpense = (expense) => {
+    dispatch({ type: "ADD_EXPENSE", payload: expense });
+  };
+
   return (
     <ExpenseContext.Provider
       value={{
         expenses: state.expenses,
         fetchExpenses,
         deleteContextExpense,
+        addContextExpense,
       }}
     >
       {children}

@@ -5,11 +5,15 @@ export default (state, action) => {
         ...state,
         expenses: [...action.payload.findAllExpenses],
       };
-    case "DELETE_EXPENSE":
-      console.log(action, state);
+    case "ADD_EXPENSE":
       return {
         ...state,
-        expenses: [...state.filter((e) => e.id !== action.payload)],
+        expenses: [...state.expenses, action.payload],
+      };
+    case "DELETE_EXPENSE":
+      return {
+        ...state,
+        expenses: state.expenses.filter((e) => e.id !== action.payload),
       };
     default:
       return state;

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
@@ -17,9 +18,12 @@ export const SIGN_IN = gql`
 `;
 
 const SignIn = () => {
-  const { updateUser } = useContext(UserContext);
+  const { updateUser, isLoggedIn } = useContext(UserContext);
+  const history = useHistory();
 
-  const [signIn, { data, loading, error, client }] = useMutation(SIGN_IN, {
+  if (isLoggedIn) history.push("/");
+
+  const [signIn, { loading, error }] = useMutation(SIGN_IN, {
     onCompleted: ({ signIn }) => {
       updateUser(signIn);
       localStorage.setItem("token", signIn.token);

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+
+import { UserContext } from "../../context/userContext/UserState";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
   const classes = useStyles();
+  const { isLoggedIn } = useContext(UserContext);
 
   return (
     <AppBar className={classes.root} position="static">
@@ -50,9 +53,13 @@ const NavBar = () => {
         <ListItem className={classes.link}>
           <Link to="/dashboard">Dashboard</Link>
         </ListItem>
-        <ListItem className={classes.link}>
-          <Link to="/login">Login</Link>
-        </ListItem>
+
+        {!isLoggedIn && (
+          <ListItem className={classes.link}>
+            <Link to="/login">Login</Link>
+          </ListItem>
+        )}
+
         <ListItem className={classes.link}>
           <Link to="/">Home</Link>
         </ListItem>

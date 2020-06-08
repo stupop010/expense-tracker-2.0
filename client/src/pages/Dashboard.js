@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Switch, Route, useParams, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
@@ -37,7 +37,6 @@ const FETCH_EXPENSES = gql`
 `;
 
 const Dashboard = () => {
-  // const { data, loading, error } = useQuery(GET_USER);
   const { user } = useContext(UserContext);
   const { fetchExpenses, expenses, deleteContextExpense } = useContext(
     ExpenseContext
