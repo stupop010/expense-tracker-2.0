@@ -10,6 +10,7 @@ import { ExpenseContext } from "../context/expenseContext/ExpenseState";
 import Menu from "../components/Menu";
 import AddExpense from "../components/AddExpense";
 import ExpenseTable from "../components/ExpenseTable";
+import Reports from "../components/Reports";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -58,7 +59,7 @@ const Dashboard = () => {
       <div className={classes.dashboard}>
         <Switch>
           <Route exact path={path}>
-            <h3>Please select a topic.</h3>
+            <Reports />
           </Route>
           <Route path={`${path}/expenses`}>
             <ExpenseTable

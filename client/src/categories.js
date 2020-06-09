@@ -1,5 +1,4 @@
 const categories = [
-  "",
   "Housing",
   "Transportation",
   "Food/Drink",
