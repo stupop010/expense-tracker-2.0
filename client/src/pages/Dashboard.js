@@ -59,7 +59,7 @@ const Dashboard = () => {
       <div className={classes.dashboard}>
         <Switch>
           <Route exact path={path}>
-            <Reports />
+            <Reports expenses={expenses} />
           </Route>
           <Route path={`${path}/expenses`}>
             <ExpenseTable
