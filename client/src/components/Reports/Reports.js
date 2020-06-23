@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import categories from "../../categories";
+// import useStyles from "./reportsStyles";
 
 import Pie from "./Pie";
+import DashboardBreadcrumbs from "../DashboardBreadcrumbs";
 
 const Reports = ({ expenses }) => {
   const [pieData, setPieData] = useState([]);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const data = [];
@@ -22,7 +26,8 @@ const Reports = ({ expenses }) => {
 
   return (
     <div>
-      <Pie data={pieData} width={250} height={250} />
+      <DashboardBreadcrumbs pathname={pathname} />
+      <Pie data={pieData} width={220} height={220} />
     </div>
   );
 };

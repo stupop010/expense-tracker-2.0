@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
     "& a": {
       color: "inherit",
       textDecoration: "inherit",
+      textTransform: "capitalize",
+      "&:hover": {
+        color: theme.palette.primary.main,
+      },
     },
   },
 }));
@@ -32,13 +36,6 @@ const DashboardBreadcrumbs = ({ pathname, children }) => {
         className={classes.breadcrumbs}
       >
         {paths.map((path, index) => {
-          // if (paths.length - 1 === index) {
-          //   return (
-          //     <Typography color="textPrimary">
-          //       {paths[paths.length - 1]}
-          //     </Typography>
-          //   );
-          // }
           return (
             <Link to={`/${path}`} key={index}>
               {path}
