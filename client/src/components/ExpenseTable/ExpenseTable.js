@@ -90,36 +90,42 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
-              ? reverseExpense.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-              : reverseExpense
-            ).map((expense, index) => (
-              <TableRow key={index}>
-                <TableCell>{expense.name}</TableCell>
-                <TableCell style={{ width: 160 }} align="right">
-                  £{expense.price}
-                </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
-                  {expense.category}
-                </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
-                  {expense.desc}
-                </TableCell>
-                <TableCell align="right">
-                  <EditIcon
-                    className={classes.iconHover}
-                    onClick={handleModalOpen}
-                  />
-                  <DeleteIcon
-                    className={classes.iconHover}
-                    onClick={() => handleModalOpen(expense.id)}
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
+            {expenses.length > 0 ? (
+              (rowsPerPage > 0
+                ? reverseExpense.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : reverseExpense
+              ).map((expense, index) => (
+                <TableRow key={index}>
+                  <TableCell>{expense.name}</TableCell>
+                  <TableCell style={{ width: 160 }} align="right">
+                    £{expense.price}
+                  </TableCell>
+                  <TableCell style={{ width: 160 }} align="right">
+                    {expense.category}
+                  </TableCell>
+                  <TableCell style={{ width: 160 }} align="right">
+                    {expense.desc}
+                  </TableCell>
+                  <TableCell align="right">
+                    <EditIcon
+                      className={classes.iconHover}
+                      onClick={handleModalOpen}
+                    />
+                    <DeleteIcon
+                      className={classes.iconHover}
+                      onClick={() => handleModalOpen(expense.id)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <div className={classes.noExpense} colSpan="5">
+                No Expenses
+              </div>
+            )}
           </TableBody>
           <TableFooter>
             <TableRow>

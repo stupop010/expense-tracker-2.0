@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     backgroundColor: theme.palette.background.lightDark,
     color: theme.palette.common.white,
-    overflow: "scroll",
     "& *": {
       color: theme.palette.common.white,
     },
@@ -67,6 +66,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.error.dark,
       },
     },
+  },
+  noExpense: {
+    padding: theme.spacing(2, 0, 0, 2),
+    fontSize: "1.4rem",
   },
 }));
 

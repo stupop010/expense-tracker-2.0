@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import categories from "../../categories";
-// import useStyles from "./reportsStyles";
+import useStyles from "./reportsStyles";
 
 import Pie from "./Pie";
 import DashboardBreadcrumbs from "../DashboardBreadcrumbs";
+import ReportCalender from "../ReportCalender";
 
 const Reports = ({ expenses }) => {
   const [pieData, setPieData] = useState([]);
   const { pathname } = useLocation();
+  const classes = useStyles();
 
   useEffect(() => {
     const data = [];
@@ -21,12 +23,16 @@ const Reports = ({ expenses }) => {
         }
       }
     }
-    setPieData(data);
+    const removeZeros = data.filter((d) => d.value !== 0);
+    setPieData(removeZeros);
   }, [expenses]);
 
   return (
     <div>
-      <DashboardBreadcrumbs pathname={pathname} />
+      <div className={classes.headingContainer}>
+        <DashboardBreadcrumbs pathname={pathname} />
+        <ReportCalender />
+      </div>
       <Pie data={pieData} width={220} height={220} />
     </div>
   );

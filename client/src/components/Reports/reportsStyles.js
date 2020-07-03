@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: theme.shadows[5],
     },
   },
+  headingContainer: {
+    display: "flex",
+  },
 }));
 
 export default useStyles;

@@ -61,12 +61,12 @@ const Pie = ({ data, width, height }) => {
   }, [data, height, width]);
 
   return (
-    <div>
+    <>
       <div className={classes.dataContainer}>
-        <svg ref={ref}></svg>
+        {data.length > 0 ? <svg ref={ref}></svg> : <div>no data</div>}
       </div>
       <Tooltip toggle={toggleTooltip} />
-    </div>
+    </>
   );
 };
 
