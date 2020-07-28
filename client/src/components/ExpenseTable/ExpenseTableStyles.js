@@ -67,10 +67,6 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  noExpense: {
-    padding: theme.spacing(2, 0, 0, 2),
-    fontSize: "1.4rem",
-  },
 }));
 
 export default useStyles;

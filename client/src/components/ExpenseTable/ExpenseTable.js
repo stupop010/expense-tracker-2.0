@@ -17,6 +17,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import PaginationActions from "./PaginationActions";
 import DashboardBreadcrumbs from "../DashboardBreadcrumbs";
+import EditExpense from "../EditExpense";
 import Modal from "../Modal";
 import DeleteExpenseActions from "./DeleteEpenseActions";
 import useStyles from "./ExpenseTableStyles";
@@ -31,6 +32,7 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [open, setOpen] = useState(false);
+  const [editModal, setEditModal] = useState(false);
   const [currentExpense, setCurrentExpense] = useState(null);
   const { pathname } = useLocation();
   const classes = useStyles();
@@ -41,8 +43,6 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
     return expenses.reverse();
   }, [expenses]);
 
-  if (loading) return <div>loading</div>;
-
   const handleModalOpen = (id) => {
     setCurrentExpense(id);
     setOpen(true);
@@ -50,6 +50,11 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
 
   const handleModalClose = () => {
     setOpen(false);
+  };
+
+  const handleEditModal = (id) => {
+    setCurrentExpense(id);
+    setEditModal(!editModal);
   };
 
   const handleChangePage = (e, newPage) => {
@@ -112,7 +117,7 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
                   <TableCell align="right">
                     <EditIcon
                       className={classes.iconHover}
-                      onClick={handleModalOpen}
+                      onClick={() => handleEditModal(expense.id)}
                     />
                     <DeleteIcon
                       className={classes.iconHover}
@@ -122,9 +127,9 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
                 </TableRow>
               ))
             ) : (
-              <div className={classes.noExpense} colSpan="5">
-                No Expenses
-              </div>
+              <TableRow>
+                <TableCell>No Expenses</TableCell>
+              </TableRow>
             )}
           </TableBody>
           <TableFooter>
@@ -147,6 +152,13 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
           </TableFooter>
         </Table>
       </TableContainer>
+      <Modal
+        open={editModal}
+        handleClose={() => setEditModal(false)}
+        title="Edit Expense"
+      >
+        {<EditExpense id={currentExpense} />}
+      </Modal>
       <Modal
         open={open}
         handleClose={handleModalClose}

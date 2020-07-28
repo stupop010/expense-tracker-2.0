@@ -43,7 +43,7 @@ export const CREATE_EXPENSE = gql`
 const AddExpense = () => {
   const { addContextExpense } = useContext(ExpenseContext);
 
-  const [createExpense, { data, loading }] = useMutation(CREATE_EXPENSE, {
+  const [createExpense] = useMutation(CREATE_EXPENSE, {
     onCompleted: ({ createExpense }) => {
       addContextExpense(createExpense);
       setCategory("");

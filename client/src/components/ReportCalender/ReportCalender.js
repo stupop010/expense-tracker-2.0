@@ -3,11 +3,17 @@ import Popover from "@material-ui/core/Popover";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
+import CloseIcon from "@material-ui/icons/Close";
+import Calendar from "react-calendar";
+import moment from "moment";
+import "react-calendar/dist/Calendar.css";
 
 import { useStyles, Btn } from "./reportCalenderStyles";
 
 const CalenderData = () => {
   const [dates, setDates] = useState("TODAY");
+  const [calendarValue, setCalendarValue] = useState([]);
+  const [openCalendar, setOpenCalendar] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
@@ -17,8 +23,18 @@ const CalenderData = () => {
     setDates(e.target.attributes.getNamedItem("data-value").value);
   };
 
+  const toggleCalendar = () => {
+    setOpenCalendar(!openCalendar);
+    setAnchorEl(null);
+  };
+
+  const onDay = (value) => {
+    setCalendarValue(value);
+    console.log(value);
+  };
+
   return (
-    <div>
+    <div className={classes.reportCalender}>
       <Btn
         disableRipple
         startIcon={<DateRangeOutlinedIcon />}
@@ -49,9 +65,24 @@ const CalenderData = () => {
           <ListItem button onClick={handleDatesChange} data-value="Last Month">
             Last Month
           </ListItem>
-          <ListItem>Custom Dates</ListItem>
+          <ListItem button onClick={toggleCalendar}>
+            Custom Dates
+          </ListItem>
         </List>
       </Popover>
+      <div className={openCalendar ? classes.showCalendar : classes.notDisplay}>
+        <div className={classes.calendar}>
+          <div className={classes.closeIcon} onClick={toggleCalendar}>
+            <CloseIcon />
+          </div>
+          <Calendar
+            selectRange
+            defaultActiveStartDate={new Date()}
+            onChange={onDay}
+          />
+        </div>
+        <div></div>
+      </div>
     </div>
   );
 };

@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   headingContainer: {
     display: "flex",
+    justifyContent: "space-between",
   },
 }));
 
