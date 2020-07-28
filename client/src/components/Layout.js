@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
-import NavBar from "./NavBar/NavBar";
+import NavBar from "./NavBar";
 import Dashboard from "../pages/Dashboard";
 import SignIn from "../pages/SignIn";
 import LandingPage from "../pages/LandingPage";

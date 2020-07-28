@@ -6,7 +6,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import { UserContext } from "./context/userContext/UserState";
 
-import "./App.css";
 import HelmetHead from "./components/Helmet";
 import Layout from "./components/Layout";
 

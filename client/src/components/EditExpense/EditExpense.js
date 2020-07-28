@@ -43,7 +43,6 @@ export const EDIT_EXPENSE = gql`
 `;
 
 const EditExpense = ({ id }) => {
-  console.log(id);
   const classes = useStyles();
   const [error, setError] = useState("");
   const [value, setValue] = useState({

@@ -23,9 +23,8 @@ const RegisterForm = ({ createUser, loading, error }) => {
     if (value.password !== value.password2) {
       return setIsError("Passwords don't match");
     }
-    const { name, email, password } = value;
     try {
-      await createUser({ variables: { email, password, name } });
+      await createUser({ variables: { ...value } });
       history.push("/dashboard");
     } catch (error) {
       console.log(error);

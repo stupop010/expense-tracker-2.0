@@ -7,13 +7,7 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 
-import useStyles from "./menuStyles";
-
-const navActive = {
-  fontWeight: "bold",
-  color: "#c9cacc",
-  textDecoration: "underline",
-};
+import { useStyles, navActive } from "./menuStyles";
 
 const Menu = ({ user }) => {
   const classes = useStyles();

@@ -38,7 +38,7 @@ const LoginForm = ({ signIn, loading, error }) => {
           <div className={classes.info}>
             <InfoOutlinedIcon />
             <p>
-              Use <span>admin@devias.io</span> and password <span>admin</span>
+              Use <span>test@test.com</span> and password <span>test</span>
             </p>
           </div>
           <form onSubmit={submit}>

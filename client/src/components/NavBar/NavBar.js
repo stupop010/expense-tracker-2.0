@@ -11,7 +11,7 @@ import { UserContext } from "../../context/userContext/UserState";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.lightDark,
-    height: "10vh",
+    height: "70px",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",

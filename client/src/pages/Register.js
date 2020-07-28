@@ -17,6 +17,7 @@ const Register = () => {
     CREATE_USER,
     {
       onCompleted: ({ createUser }) => {
+        // TODO need to change to user context
         client.writeData({
           data: {
             isLoggedIn: true,

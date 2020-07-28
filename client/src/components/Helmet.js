@@ -5,7 +5,7 @@ const HelmetHead = () => {
   return (
     <Helmet>
       <meta charSet="utf-8" />
-      <title>My Title</title>
+      <title>Expense Tracker</title>
 
       <link
         rel="stylesheet"

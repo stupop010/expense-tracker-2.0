@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.lightDark,
     borderRight: "1px solid rgba(255, 255, 255, 0.12)",
@@ -33,4 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default useStyles;
+export const navActive = {
+  fontWeight: "bold",
+  color: "#c9cacc",
+  textDecoration: "underline",
+};
