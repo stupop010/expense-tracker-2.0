@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
@@ -6,7 +6,9 @@ import { useQuery } from "@apollo/react-hooks";
 import Box from "@material-ui/core/Box";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from "@material-ui/core/MenuItem";
-import PurpleBtn from "../PurpleBtn";
+
+import { ExpenseContext } from "../../context/expenseContext/ExpenseState";
+
 import ErrorMessage from "../ErrorMessage";
 import { ExpenseInput } from "../customStyles";
 
@@ -31,8 +33,15 @@ export const EDIT_EXPENSE = gql`
     $desc: String!
     $price: String!
     $category: String!
+    $id: Int!
   ) {
-    editExpense(name: $name, desc: $desc, price: $price, category: $category) {
+    editExpense(
+      name: $name
+      desc: $desc
+      price: $price
+      category: $category
+      id: $id
+    ) {
       name
       id
       price
@@ -42,14 +51,14 @@ export const EDIT_EXPENSE = gql`
   }
 `;
 
-const EditExpense = ({ id }) => {
+const EditExpense = ({ id, setEditModal }) => {
+  const { editContextExpense } = useContext(ExpenseContext);
   const classes = useStyles();
   const [error, setError] = useState("");
   const [value, setValue] = useState({
     name: "",
     desc: "",
     price: "",
-    category: "",
   });
   const [category, setCategory] = useState("");
 
@@ -60,8 +69,8 @@ const EditExpense = ({ id }) => {
         name: findExpense.name,
         price: findExpense.price,
         desc: findExpense.desc,
-        category: findExpense.category,
       });
+      setCategory(findExpense.category);
     },
   });
 
@@ -71,7 +80,11 @@ const EditExpense = ({ id }) => {
   }, [id]);
 
   const [editExpense] = useMutation(EDIT_EXPENSE, {
-    onCompleted: (s) => console.log(s),
+    onCompleted: ({ editExpense }) => {
+      editContextExpense(editExpense);
+      setError("");
+      setEditModal(false);
+    },
   });
 
   const handleChange = (e) => {
@@ -84,7 +97,7 @@ const EditExpense = ({ id }) => {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      await editExpense();
+      await editExpense({ variables: { ...value, category, id } });
     } catch (error) {
       if (error.message.includes("Validation error")) {
         setError("All fields must be required");
@@ -96,12 +109,13 @@ const EditExpense = ({ id }) => {
   return (
     <Box className={classes.form}>
       <form onSubmit={submit}>
+        {error && <ErrorMessage error={error} />}
         <ExpenseInput
           required
           label="Expense name"
           variant="outlined"
           name="name"
-          value={value.dec}
+          value={value.name}
           onChange={handleChange}
         />
         <ExpenseInput
@@ -121,7 +135,7 @@ const EditExpense = ({ id }) => {
           id="category"
           label="Categories"
           name="category"
-          value={value.category}
+          value={category}
           onChange={(e) => setCategory(e.target.value)}
           helperText="Please select a category"
         >
@@ -147,7 +161,18 @@ const EditExpense = ({ id }) => {
             startAdornment: <InputAdornment position="start">£</InputAdornment>,
           }}
         />
-        <PurpleBtn type="submit">Create Expense</PurpleBtn>
+        <div className={classes.btn}>
+          <button type="submit" className={classes.purpleBtn}>
+            Confirm
+          </button>
+          <button
+            type="button"
+            className={classes.cancelBtn}
+            onClick={() => setEditModal(false)}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </Box>
   );

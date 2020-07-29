@@ -23,6 +23,11 @@ export const ExpenseProvider = ({ children }) => {
     dispatch({ type: "ADD_EXPENSE", payload: expense });
   };
 
+  const editContextExpense = (expense) => {
+    console.log(expense);
+    dispatch({ type: "EDIT_EXPENSE", payload: expense });
+  };
+
   return (
     <ExpenseContext.Provider
       value={{
@@ -30,6 +35,7 @@ export const ExpenseProvider = ({ children }) => {
         fetchExpenses,
         deleteContextExpense,
         addContextExpense,
+        editContextExpense,
       }}
     >
       {children}

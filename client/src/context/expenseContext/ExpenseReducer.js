@@ -10,6 +10,12 @@ export default (state, action) => {
         ...state,
         expenses: [...state.expenses, action.payload],
       };
+    case "EDIT_EXPENSE":
+      console.log(action.payload);
+      return {
+        ...state,
+        expenses: replace(state.expenses, action.payload),
+      };
     case "DELETE_EXPENSE":
       return {
         ...state,
@@ -18,4 +24,14 @@ export default (state, action) => {
     default:
       return state;
   }
+};
+
+const replace = (array, expense) => {
+  const index = array.findIndex((p) => p.id === expense.id);
+  if (index === -1) {
+    return;
+  } else {
+    array[index] = expense;
+  }
+  return array;
 };

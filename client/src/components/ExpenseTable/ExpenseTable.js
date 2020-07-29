@@ -157,7 +157,7 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
         handleClose={() => setEditModal(false)}
         title="Edit Expense"
       >
-        {<EditExpense id={currentExpense} />}
+        {<EditExpense id={currentExpense} setEditModal={setEditModal} />}
       </Modal>
       <Modal
         open={open}
