@@ -6,6 +6,8 @@ import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
 import CloseIcon from "@material-ui/icons/Close";
 import Calendar from "react-calendar";
 import moment from "moment";
+import Search from "./Search";
+
 import "react-calendar/dist/Calendar.css";
 
 import { useStyles, Btn } from "./reportCalenderStyles";
@@ -30,7 +32,7 @@ const CalenderData = () => {
 
   const onDay = (value) => {
     setCalendarValue(value);
-    console.log(value);
+    // console.log(value);
   };
 
   return (
@@ -77,11 +79,15 @@ const CalenderData = () => {
           </div>
           <Calendar
             selectRange
-            defaultActiveStartDate={new Date()}
+            // defaultActiveStartDate={new Date()}
+            allowPartialRange
             onChange={onDay}
+            onClickDay={onDay}
           />
         </div>
-        <div></div>
+        <div>
+          <Search calendarValue={calendarValue} />
+        </div>
       </div>
     </div>
   );
