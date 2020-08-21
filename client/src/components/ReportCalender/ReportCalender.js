@@ -1,14 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import { useLazyQuery } from "@apollo/react-hooks";
+
 import Popover from "@material-ui/core/Popover";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
 import CloseIcon from "@material-ui/icons/Close";
 import Calendar from "react-calendar";
-import moment from "moment";
-import Search from "./Search";
-
 import "react-calendar/dist/Calendar.css";
+
+import { SEARCH_DATES } from "../../graphQL/querys";
+
+import Search from "./Search";
 
 import { useStyles, Btn } from "./reportCalenderStyles";
 
@@ -21,6 +24,13 @@ const CalenderData = () => {
   const classes = useStyles();
   const open = Boolean(anchorEl);
 
+  const [getSearchDates, { loading, data }] = useLazyQuery(SEARCH_DATES, {
+    partialRefetch: true,
+    onCompleted: (data) => {
+      console.log(data);
+    },
+  });
+
   const handleDatesChange = (e) => {
     setDates(e.target.attributes.getNamedItem("data-value").value);
   };
@@ -32,7 +42,12 @@ const CalenderData = () => {
 
   const onDay = (value) => {
     setCalendarValue(value);
-    // console.log(value);
+  };
+
+  const search = (searchDates) => {
+    getSearchDates({
+      variables: { dates: searchDates.toString() },
+    });
   };
 
   return (
@@ -79,14 +94,14 @@ const CalenderData = () => {
           </div>
           <Calendar
             selectRange
-            // defaultActiveStartDate={new Date()}
             allowPartialRange
             onChange={onDay}
             onClickDay={onDay}
+            maxDate={new Date()}
           />
         </div>
         <div>
-          <Search calendarValue={calendarValue} />
+          <Search calendarValue={calendarValue} search={search} />
         </div>
       </div>
     </div>

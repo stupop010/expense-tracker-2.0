@@ -26,6 +26,20 @@ export const useStyles = makeStyles((theme) => ({
     padding: "0.5rem",
     cursor: "pointer",
   },
+  search: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+    backgroundColor: "white",
+    padding: "0.5rem",
+    "& button": {
+      fontSize: "1rem",
+      padding: "0.2rem 1rem",
+      "&:hover": {
+        cursor: "pointer",
+      },
+    },
+  },
 }));
 
 export const Btn = withStyles((theme) => ({

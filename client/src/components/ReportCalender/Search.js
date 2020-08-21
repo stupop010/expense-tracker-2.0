@@ -1,51 +1,27 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
+import React from "react";
 
-const Search = ({ calendarValue }) => {
-  const [dates, setDates] = useState([]);
+import { useStyles } from "./reportCalenderStyles";
 
-  useEffect(() => {
-    // Reset prev dates
-    setDates([]);
+const Search = ({ calendarValue, search }) => {
+  const classes = useStyles();
 
-    const d = [];
+  const dateOne = new Date(calendarValue[0]).toLocaleDateString();
 
-    for (let i = 0; i < calendarValue.length; i++) {
-      const s = calendarValue[i].toString().split(" ");
-      d.push(`${s[2]}/${months(s[1])}/${s[3]}`);
-    }
-
-    console.log(d);
-  }, [calendarValue]);
+  const dateTwo = new Date(calendarValue[1]).toLocaleDateString();
 
   return (
-    <div>
-      <button>search</button>
+    <div className={classes.search}>
+      <button onClick={() => search(calendarValue)}>Search</button>
+      <div>
+        {calendarValue.length === 1 && <span>{dateOne}</span>}
+        {calendarValue.length === 2 && (
+          <>
+            <span>{dateOne}</span> - <span>{dateTwo}</span>
+          </>
+        )}
+      </div>
     </div>
   );
-};
-
-const months = (month) => {
-  const months = {
-    Jan: "01",
-    Feb: "02",
-    Mar: "03",
-    Apr: "04",
-    May: "05",
-    Jun: "06",
-    Jul: "07",
-    Aug: "08",
-    Sep: "09",
-    Oct: "10",
-    Nov: "11",
-    Dec: "12",
-  };
-
-  for (const [key, value] of Object.entries(months)) {
-    if (key === month) {
-      return value;
-    }
-  }
 };
 
 export default Search;

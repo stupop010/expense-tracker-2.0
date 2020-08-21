@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
 import Box from "@material-ui/core/Box";
@@ -9,47 +8,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import { ExpenseContext } from "../../context/expenseContext/ExpenseState";
 
+import { EDIT_EXPENSE } from "../../graphQL/mutations";
+import { FIND_EXPENSE } from "../../graphQL/querys";
+
 import ErrorMessage from "../ErrorMessage";
 import { ExpenseInput } from "../customStyles";
 
 import useStyles from "./editExpenseStyles";
 import categories from "../../categories";
-
-const FIND_EXPENSE = gql`
-  query findExpense($id: Int!) {
-    findExpense(id: $id) {
-      id
-      name
-      price
-      category
-      desc
-    }
-  }
-`;
-
-export const EDIT_EXPENSE = gql`
-  mutation editExpense(
-    $name: String!
-    $desc: String!
-    $price: String!
-    $category: String!
-    $id: Int!
-  ) {
-    editExpense(
-      name: $name
-      desc: $desc
-      price: $price
-      category: $category
-      id: $id
-    ) {
-      name
-      id
-      price
-      desc
-      category
-    }
-  }
-`;
 
 const EditExpense = ({ id, setEditModal }) => {
   const { editContextExpense } = useContext(ExpenseContext);

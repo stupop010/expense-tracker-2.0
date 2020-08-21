@@ -11,34 +11,14 @@ import Slide from "@material-ui/core/Slide";
 
 import { ExpenseContext } from "../../context/expenseContext/ExpenseState";
 
+import { CREATE_EXPENSE } from "../../graphQL/mutations";
+
 import PurpleBtn from "../PurpleBtn";
 import ErrorMessage from "../ErrorMessage";
 
 import { ExpenseInput } from "../customStyles";
 import useStyles from "./addExpenseStyles";
 import categories from "../../categories";
-
-export const CREATE_EXPENSE = gql`
-  mutation createExpense(
-    $name: String!
-    $desc: String!
-    $price: String!
-    $category: String!
-  ) {
-    createExpense(
-      name: $name
-      desc: $desc
-      price: $price
-      category: $category
-    ) {
-      name
-      id
-      price
-      desc
-      category
-    }
-  }
-`;
 
 const AddExpense = () => {
   const { addContextExpense } = useContext(ExpenseContext);
