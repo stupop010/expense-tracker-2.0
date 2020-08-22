@@ -9,6 +9,7 @@ import DashboardBreadcrumbs from "../DashboardBreadcrumbs";
 import ReportCalender from "../ReportCalender";
 
 const Reports = ({ expenses }) => {
+  console.log(expenses);
   const [pieData, setPieData] = useState([]);
   const { pathname } = useLocation();
   const classes = useStyles();

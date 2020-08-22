@@ -24,7 +24,6 @@ export const ExpenseProvider = ({ children }) => {
   };
 
   const editContextExpense = (expense) => {
-    console.log(expense);
     dispatch({ type: "EDIT_EXPENSE", payload: expense });
   };
 

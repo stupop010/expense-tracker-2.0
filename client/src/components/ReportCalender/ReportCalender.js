@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useLazyQuery } from "@apollo/react-hooks";
 
 import Popover from "@material-ui/core/Popover";
@@ -9,7 +9,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-import { SEARCH_DATES } from "../../graphQL/querys";
+import { ExpenseContext } from "../../context/expenseContext/ExpenseState";
+import { SEARCH_DATES, SEARCH_DATE } from "../../graphQL/querys";
 
 import Search from "./Search";
 
@@ -24,15 +25,25 @@ const CalenderData = () => {
   const classes = useStyles();
   const open = Boolean(anchorEl);
 
+  const { fetchExpenses } = useContext(ExpenseContext);
+
   const [getSearchDates, { loading, data }] = useLazyQuery(SEARCH_DATES, {
     partialRefetch: true,
-    onCompleted: (data) => {
-      console.log(data);
+    onCompleted: ({ searchDates }) => {
+      fetchExpenses(searchDates);
+
+      if (openCalendar) toggleCalendar();
     },
   });
 
   const handleDatesChange = (e) => {
-    setDates(e.target.attributes.getNamedItem("data-value").value);
+    const date = e.target.attributes.getNamedItem("data-value").value;
+    setDates(date);
+    getSearchDates({
+      variables: {
+        dates: date,
+      },
+    });
   };
 
   const toggleCalendar = () => {
@@ -44,7 +55,8 @@ const CalenderData = () => {
     setCalendarValue(value);
   };
 
-  const search = (searchDates) => {
+  const search = (setDate, searchDates) => {
+    setDates(setDate);
     getSearchDates({
       variables: { dates: searchDates.toString() },
     });

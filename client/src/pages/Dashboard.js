@@ -6,50 +6,25 @@ import { useQuery } from "@apollo/react-hooks";
 
 import { UserContext } from "../context/userContext/UserState";
 import { ExpenseContext } from "../context/expenseContext/ExpenseState";
+import { FETCH_THIS_YEAR_EXPENSES } from "../graphQL/querys";
 
 import Menu from "../components/Menu";
 import AddExpense from "../components/AddExpense";
 import ExpenseTable from "../components/ExpenseTable";
 import Reports from "../components/Reports";
 
-const useStyles = makeStyles((theme) => ({
-  layout: {
-    display: "grid",
-    gridTemplateColumns: "250px auto",
-    height: "90vh",
-  },
-  dashboard: {
-    backgroundColor: theme.palette.background.dark,
-    padding: theme.spacing(3, 4),
-    overflow: "scroll",
-  },
-}));
-
-const FETCH_EXPENSES = gql`
-  query fetchExpenses {
-    findAllExpenses {
-      name
-      price
-      desc
-      category
-      id
-    }
-  }
-`;
-
 const Dashboard = () => {
+  const classes = useStyles();
+  let { path, url } = useRouteMatch();
   const { user } = useContext(UserContext);
+
   const { fetchExpenses, expenses, deleteContextExpense } = useContext(
     ExpenseContext
   );
 
-  const classes = useStyles();
-
-  let { path, url } = useRouteMatch();
-
-  const { data, loading, client } = useQuery(FETCH_EXPENSES, {
-    onCompleted: () => {
-      fetchExpenses(data);
+  const { data, loading, client } = useQuery(FETCH_THIS_YEAR_EXPENSES, {
+    onCompleted: ({ findThisYearExpenses }) => {
+      fetchExpenses(findThisYearExpenses);
     },
   });
 
@@ -75,5 +50,18 @@ const Dashboard = () => {
     </div>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  layout: {
+    display: "grid",
+    gridTemplateColumns: "250px auto",
+    height: "90vh",
+  },
+  dashboard: {
+    backgroundColor: theme.palette.background.dark,
+    padding: theme.spacing(3, 4),
+    overflow: "scroll",
+  },
+}));
 
 export default Dashboard;
