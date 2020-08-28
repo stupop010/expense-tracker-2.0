@@ -38,7 +38,7 @@ const LoginForm = ({ signIn, loading, error }) => {
           <div className={classes.info}>
             <InfoOutlinedIcon />
             <p>
-              Use <span>test@test.com</span> and password <span>test</span>
+              Use <span>stu@email.com</span> and password <span>stu</span>
             </p>
           </div>
           <form onSubmit={submit}>
@@ -50,6 +50,7 @@ const LoginForm = ({ signIn, loading, error }) => {
               className={classes.input}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete="off"
             />
             <CssTextField
               label="Password"
@@ -59,6 +60,7 @@ const LoginForm = ({ signIn, loading, error }) => {
               className={classes.input}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="off"
             />
             <PurpleBtn type="submit" className={classes.btn}>
               Log In

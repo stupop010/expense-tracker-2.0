@@ -85,6 +85,9 @@ const CalenderData = () => {
         }}
       >
         <List className={classes.popoverBg}>
+          <ListItem button onClick={handleDatesChange} data-value="This Year">
+            This Year
+          </ListItem>
           <ListItem button onClick={handleDatesChange} data-value="Today">
             Today
           </ListItem>

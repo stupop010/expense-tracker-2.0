@@ -76,6 +76,7 @@ const AddExpense = () => {
             name="name"
             value={value.name}
             onChange={handleChange}
+            autoComplete="false"
           />
           <ExpenseInput
             required
