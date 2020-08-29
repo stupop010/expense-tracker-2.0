@@ -17,7 +17,7 @@ import Search from "./Search";
 import { useStyles, Btn } from "./reportCalenderStyles";
 
 const CalenderData = () => {
-  const [dates, setDates] = useState("TODAY");
+  const [dates, setDates] = useState("This Year");
   const [calendarValue, setCalendarValue] = useState([]);
   const [openCalendar, setOpenCalendar] = useState(false);
 

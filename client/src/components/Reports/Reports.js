@@ -1,31 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import categories from "../../categories";
 import useStyles from "./reportsStyles";
 
 import Pie from "./Pie";
+import BarChart from "./BarChart";
 import DashboardBreadcrumbs from "../DashboardBreadcrumbs";
 import ReportCalender from "../ReportCalender";
 
+import { pieDataHelper, barDataHelper } from "../../d3Helpers/d3Helper";
+
 const Reports = ({ expenses }) => {
-  console.log(expenses);
   const [pieData, setPieData] = useState([]);
+  const [barData, setBarData] = useState([]);
   const { pathname } = useLocation();
   const classes = useStyles();
 
   useEffect(() => {
-    const data = [];
-    categories.map((i) => data.push({ category: i, value: 0 }));
-    for (let i = 0; i < expenses.length; i++) {
-      for (let y = 0; y < data.length; y++) {
-        if (expenses[i].category === data[y].category) {
-          data[y].value += +expenses[i].price;
-        }
-      }
-    }
-    const removeZeros = data.filter((d) => d.value !== 0);
-    setPieData(removeZeros);
+    setPieData(pieDataHelper(expenses));
+    setBarData(barDataHelper(expenses));
   }, [expenses]);
 
   return (
@@ -35,6 +28,7 @@ const Reports = ({ expenses }) => {
         <ReportCalender />
       </div>
       <Pie data={pieData} width={220} height={220} />
+      <BarChart data={barData} width={220} height={220} />
     </div>
   );
 };

@@ -8,6 +8,7 @@ export const FIND_EXPENSE = gql`
       price
       category
       desc
+      createdAt
     }
   }
 `;
@@ -20,6 +21,7 @@ export const SEARCH_DATES = gql`
       desc
       category
       id
+      createdAt
     }
   }
 `;
@@ -32,6 +34,7 @@ export const FETCH_THIS_YEAR_EXPENSES = gql`
       desc
       category
       id
+      createdAt
     }
   }
 `;
