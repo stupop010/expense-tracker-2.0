@@ -1,7 +1,7 @@
 import categories from "../categories";
 import moment from "moment";
 
-export const pieDataHelper = (expenses) => {
+export const categoryDataHelper = (expenses) => {
   const data = [];
   categories.map((i) => data.push({ category: i, value: 0 }));
   for (let i = 0; i < expenses.length; i++) {
@@ -30,7 +30,7 @@ export const barDataHelper = (expenses) => {
   return data;
 };
 
-const months = [
+export const months = [
   "Jan",
   "Feb",
   "Mar",

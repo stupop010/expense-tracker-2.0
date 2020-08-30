@@ -27,6 +27,10 @@ export const ExpenseProvider = ({ children }) => {
     dispatch({ type: "EDIT_EXPENSE", payload: expense });
   };
 
+  const resetExpense = () => {
+    dispatch({ type: "RESET_EXPENSE" });
+  };
+
   return (
     <ExpenseContext.Provider
       value={{
@@ -35,6 +39,7 @@ export const ExpenseProvider = ({ children }) => {
         deleteContextExpense,
         addContextExpense,
         editContextExpense,
+        resetExpense,
       }}
     >
       {children}

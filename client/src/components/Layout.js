@@ -7,6 +7,7 @@ import Dashboard from "../pages/Dashboard";
 import SignIn from "../pages/SignIn";
 import LandingPage from "../pages/LandingPage";
 import Register from "../pages/Register";
+import Logout from "../pages/Logout";
 import PrivateRoute from "./PrivateRoute";
 
 const useStyles = makeStyles((theme) => ({
@@ -14,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     minHeight: "100vh",
+    overflow: "hidden",
   },
 }));
 
@@ -28,17 +30,20 @@ const Layout = () => {
           <PrivateRoute path="/dashboard">
             <Dashboard />
           </PrivateRoute>
-          {/* <Route path="/dashboard"> */}
-          {/* <Dashboard /> */}
-          {/* </Route> */}
-          <Route path="/login">
+          {/* <Route path="/dashboard">
+            <Dashboard />
+          </Route> */}
+          <Route path="/login" exact>
             <SignIn />
           </Route>
-          <Route path="/register">
+          <Route path="/register" exact>
             <Register />
           </Route>
-          <Route path="/">
+          <Route path="/" exact>
             <LandingPage />
+          </Route>
+          <Route path="/logout" exact>
+            <Logout />
           </Route>
         </Switch>
       </div>

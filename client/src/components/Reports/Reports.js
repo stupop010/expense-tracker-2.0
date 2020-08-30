@@ -5,30 +5,43 @@ import useStyles from "./reportsStyles";
 
 import Pie from "./Pie";
 import BarChart from "./BarChart";
+import InfoData from "./InfoData";
 import DashboardBreadcrumbs from "../DashboardBreadcrumbs";
 import ReportCalender from "../ReportCalender";
 
-import { pieDataHelper, barDataHelper } from "../../d3Helpers/d3Helper";
+import { categoryDataHelper, barDataHelper } from "../../d3Helpers/d3Helper";
 
 const Reports = ({ expenses }) => {
-  const [pieData, setPieData] = useState([]);
+  const [dates, setDates] = useState("This Year");
+  const [categoryData, setCategoryData] = useState([]);
   const [barData, setBarData] = useState([]);
   const { pathname } = useLocation();
   const classes = useStyles();
 
   useEffect(() => {
-    setPieData(pieDataHelper(expenses));
+    setCategoryData(categoryDataHelper(expenses));
     setBarData(barDataHelper(expenses));
   }, [expenses]);
-
   return (
     <div>
       <div className={classes.headingContainer}>
         <DashboardBreadcrumbs pathname={pathname} />
-        <ReportCalender />
+        <ReportCalender dates={dates} setDates={setDates} />
       </div>
-      <Pie data={pieData} width={220} height={220} />
-      <BarChart data={barData} width={220} height={220} />
+      <h1 className={classes.dashboardTitle}>Expenses from {dates}</h1>
+      <div className={classes.dataContainer}>
+        {expenses.length > 0 ? (
+          <>
+            <BarChart data={barData} />
+            <InfoData data={categoryData} />
+            <Pie data={categoryData} width={320} height={320} />
+          </>
+        ) : (
+          <div>
+            <h2>No data for this period.</h2>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

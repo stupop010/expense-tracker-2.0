@@ -14,7 +14,7 @@ const LandingPage = () => {
   return (
     <div>
       <Box className={classes.root}>
-        <Typography>Landing Page</Typography>
+        <Typography>Landinsxg Page</Typography>
       </Box>
     </div>
   );

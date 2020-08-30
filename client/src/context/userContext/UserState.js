@@ -19,12 +19,19 @@ export const UserProvider = ({ children }) => {
     });
   };
 
+  const logoutUser = () => {
+    dispatch({
+      type: "LOGOUT_USER",
+    });
+  };
+
   return (
     <UserContext.Provider
       value={{
         user: state.user,
         isLoggedIn: state.isLoggedIn,
         updateUser,
+        logoutUser,
       }}
     >
       {children}

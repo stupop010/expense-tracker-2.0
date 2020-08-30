@@ -16,8 +16,7 @@ import Search from "./Search";
 
 import { useStyles, Btn } from "./reportCalenderStyles";
 
-const CalenderData = () => {
-  const [dates, setDates] = useState("This Year");
+const CalenderData = ({ dates, setDates }) => {
   const [calendarValue, setCalendarValue] = useState([]);
   const [openCalendar, setOpenCalendar] = useState(false);
 
@@ -32,6 +31,7 @@ const CalenderData = () => {
     onCompleted: ({ searchDates }) => {
       fetchExpenses(searchDates);
 
+      setAnchorEl(null);
       if (openCalendar) toggleCalendar();
     },
   });

@@ -20,7 +20,6 @@ const Pie = ({ data, width, height }) => {
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)
-      .attr("background", "blue")
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
       .classed("chart2", true);
@@ -36,17 +35,14 @@ const Pie = ({ data, width, height }) => {
 
     const update = d3.select(".chart2").selectAll(".arc2").data(arcs);
 
-    update.exit().remove();
-
     update
       .enter()
       .append("path")
       .classed("arc", true)
-      .merge(update)
       .attr("fill", (d) => colorScale(d.data.category))
       .attr("stroke", "black")
       .attr("d", path)
-      .on("mousemove", function (d) {
+      .on("mousemove", (d) => {
         setToggleTooltip({
           toggle: true,
           y: d3.event.y,
@@ -55,17 +51,24 @@ const Pie = ({ data, width, height }) => {
           percent: d3.format(".1%")(d.value / total),
         });
       })
-      .on("mouseout", function (d) {
+      .on("mouseout", (d) => {
         setToggleTooltip({ toggle: false });
       });
   }, [data, height, width]);
 
   return (
     <>
-      <div className={classes.dataContainer}>
-        {data.length > 0 ? <svg ref={ref}></svg> : <div>no data</div>}
+      <div className={classes.pieChart}>
+        <svg ref={ref}></svg>
       </div>
-      <Tooltip toggle={toggleTooltip} />
+      <Tooltip toggle={toggleTooltip}>
+        {toggleTooltip.info ? (
+          <>
+            {toggleTooltip.info.category}: £{toggleTooltip.info.value}
+            <span className={classes.tooltipSpan}>{toggleTooltip.percent}</span>
+          </>
+        ) : null}
+      </Tooltip>
     </>
   );
 };

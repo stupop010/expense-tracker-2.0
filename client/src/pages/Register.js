@@ -1,32 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 
 import RegisterForm from "../components/RegisterForm";
 
-export const CREATE_USER = gql`
-  mutation createUser($email: String!, $password: String!, $name: String!) {
-    createUser(name: $name, email: $email, password: $password) {
-      token
-    }
-  }
-`;
+import { UserContext } from "../context/userContext/UserState";
+import { CREATE_USER } from "../graphQL/mutations";
 
 const Register = () => {
-  const [createUser, { data, loading, error, client }] = useMutation(
-    CREATE_USER,
-    {
-      onCompleted: ({ createUser }) => {
-        // TODO need to change to user context
-        client.writeData({
-          data: {
-            isLoggedIn: true,
-          },
-        });
-        localStorage.setItem("token", createUser.token);
-      },
-    }
-  );
+  const { updateUser } = useContext(UserContext);
+
+  const [createUser, { error }] = useMutation(CREATE_USER, {
+    onCompleted: ({ createUser }) => {
+      updateUser(createUser);
+    },
+  });
   return <RegisterForm createUser={createUser} error={error} />;
 };
 

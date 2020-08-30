@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -20,6 +19,12 @@ import { ExpenseInput } from "../customStyles";
 import useStyles from "./addExpenseStyles";
 import categories from "../../categories";
 
+const initialState = {
+  name: "",
+  desc: "",
+  price: "",
+};
+
 const AddExpense = () => {
   const { addContextExpense } = useContext(ExpenseContext);
 
@@ -28,16 +33,12 @@ const AddExpense = () => {
       addContextExpense(createExpense);
       setCategory("");
       setError("");
-      setValue({ name: "", desc: "", price: "" });
+      setValue(initialState);
       setOpen(true);
     },
   });
 
-  const [value, setValue] = useState({
-    name: "",
-    desc: "",
-    price: "",
-  });
+  const [value, setValue] = useState(initialState);
   const [category, setCategory] = useState("");
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
@@ -76,7 +77,7 @@ const AddExpense = () => {
             name="name"
             value={value.name}
             onChange={handleChange}
-            autoComplete="false"
+            autoComplete="off"
           />
           <ExpenseInput
             required
@@ -87,6 +88,7 @@ const AddExpense = () => {
             name="desc"
             value={value.desc}
             onChange={handleChange}
+            autoComplete="off"
           />
           <ExpenseInput
             required
@@ -98,6 +100,7 @@ const AddExpense = () => {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             helperText="Please select a category"
+            autoComplete="off"
           >
             {categories.map((category, i) => {
               return (
@@ -117,6 +120,7 @@ const AddExpense = () => {
             name="price"
             value={value.price}
             onChange={handleChange}
+            autoComplete="off"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">£</InputAdornment>

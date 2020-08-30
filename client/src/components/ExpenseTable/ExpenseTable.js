@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { gql } from "apollo-boost";
+import PropTypes from "prop-types";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useLocation, Link } from "react-router-dom";
 import Table from "@material-ui/core/Table";
@@ -22,11 +22,7 @@ import Modal from "../Modal";
 import DeleteExpenseActions from "./DeleteEpenseActions";
 import useStyles from "./ExpenseTableStyles";
 
-export const DELETE_EXPENSE = gql`
-  mutation deleteExpense($id: Int!) {
-    deleteExpense(id: $id)
-  }
-`;
+import { DELETE_EXPENSE } from "../../graphQL/mutations";
 
 const ExpenseTable = ({ expenses, deleteContextExpense }) => {
   const [page, setPage] = useState(0);
@@ -37,7 +33,7 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
   const { pathname } = useLocation();
   const classes = useStyles();
 
-  const [deleteExpense, { loading }] = useMutation(DELETE_EXPENSE);
+  const [deleteExpense, { loading, error }] = useMutation(DELETE_EXPENSE);
 
   const reverseExpense = useMemo(() => {
     return expenses.reverse();
@@ -67,13 +63,9 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
   };
 
   const handleDeleteExpense = async () => {
-    try {
-      await deleteExpense({ variables: { id: currentExpense } });
-      deleteContextExpense(currentExpense);
-      handleModalClose();
-    } catch (error) {
-      console.log(error);
-    }
+    deleteExpense({ variables: { id: currentExpense } });
+    deleteContextExpense(currentExpense);
+    handleModalClose();
   };
 
   return (
@@ -157,7 +149,7 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
         handleClose={() => setEditModal(false)}
         title="Edit Expense"
       >
-        {<EditExpense id={currentExpense} setEditModal={setEditModal} />}
+        <EditExpense id={currentExpense} setEditModal={setEditModal} />
       </Modal>
       <Modal
         open={open}
@@ -174,6 +166,11 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
       />
     </main>
   );
+};
+
+ExpenseTable.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object),
+  deleteContextExpense: PropTypes.func.isRequired,
 };
 
 export default ExpenseTable;

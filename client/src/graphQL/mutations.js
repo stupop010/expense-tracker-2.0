@@ -45,3 +45,17 @@ export const EDIT_EXPENSE = gql`
     }
   }
 `;
+
+export const CREATE_USER = gql`
+  mutation createUser($email: String!, $password: String!, $name: String!) {
+    createUser(name: $name, email: $email, password: $password) {
+      token
+    }
+  }
+`;
+
+export const DELETE_EXPENSE = gql`
+  mutation deleteExpense($id: Int!) {
+    deleteExpense(id: $id)
+  }
+`;

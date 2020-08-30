@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +23,10 @@ const ErrorMessage = ({ error }) => {
     errMsg = error.trim();
   }
   return <div className={classes.error}>{errMsg}</div>;
+};
+
+ErrorMessage.propTypes = {
+  error: PropTypes.string.isRequired,
 };
 
 export default ErrorMessage;

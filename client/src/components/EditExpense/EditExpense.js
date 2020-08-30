@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import PropTypes from "prop-types";
 import { useMutation } from "@apollo/react-hooks";
 import { useQuery } from "@apollo/react-hooks";
 
@@ -83,6 +84,7 @@ const EditExpense = ({ id, setEditModal }) => {
           name="name"
           value={value.name}
           onChange={handleChange}
+          autoComplete="off"
         />
         <ExpenseInput
           required
@@ -93,6 +95,7 @@ const EditExpense = ({ id, setEditModal }) => {
           name="desc"
           value={value.desc}
           onChange={handleChange}
+          autoComplete="off"
         />
         <ExpenseInput
           required
@@ -103,6 +106,7 @@ const EditExpense = ({ id, setEditModal }) => {
           name="category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          autoComplete="off"
           helperText="Please select a category"
         >
           {categories.map((category, i) => {
@@ -123,6 +127,7 @@ const EditExpense = ({ id, setEditModal }) => {
           name="price"
           value={value.price}
           onChange={handleChange}
+          autoComplete="off"
           InputProps={{
             startAdornment: <InputAdornment position="start">£</InputAdornment>,
           }}
@@ -142,6 +147,12 @@ const EditExpense = ({ id, setEditModal }) => {
       </form>
     </Box>
   );
+};
+
+EditExpense.propTypes = {
+  count: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
+  setEditModal: PropTypes.bool.isRequired,
 };
 
 export default EditExpense;

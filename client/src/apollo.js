@@ -18,7 +18,6 @@ const client = new ApolloClient({
     if (graphQLErrors) {
       graphQLErrors.map(({ message, locations, path }) => {
         console.log(`GraphQL Error: ${message}`);
-        // console.log(cache.read());
         if (message.includes("Not authenticated.")) {
           //   cache.writeData({
           //     data: {
