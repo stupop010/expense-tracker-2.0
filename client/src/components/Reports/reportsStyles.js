@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
     "& ul": {
       listStyle: "none",
+      padding: 0,
     },
   },
 

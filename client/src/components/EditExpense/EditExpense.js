@@ -18,18 +18,20 @@ import { ExpenseInput } from "../customStyles";
 import useStyles from "./editExpenseStyles";
 import categories from "../../categories";
 
+const initialState = {
+  name: "",
+  desc: "",
+  price: "",
+};
+
 const EditExpense = ({ id, setEditModal }) => {
   const { editContextExpense } = useContext(ExpenseContext);
   const classes = useStyles();
   const [error, setError] = useState("");
-  const [value, setValue] = useState({
-    name: "",
-    desc: "",
-    price: "",
-  });
+  const [value, setValue] = useState(initialState);
   const [category, setCategory] = useState("");
 
-  const { loading, data, refetch } = useQuery(FIND_EXPENSE, {
+  const { refetch } = useQuery(FIND_EXPENSE, {
     variables: { id },
     onCompleted: ({ findExpense }) => {
       setValue({
@@ -44,7 +46,7 @@ const EditExpense = ({ id, setEditModal }) => {
   // Refetch the useQuery when the expense ID updates
   useEffect(() => {
     if (id) refetch();
-  }, [id]);
+  }, [id, refetch]);
 
   const [editExpense] = useMutation(EDIT_EXPENSE, {
     onCompleted: ({ editExpense }) => {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import { ExpenseContext } from "../context/expenseContext/ExpenseState";
 import { UserContext } from "../context/userContext/UserState";

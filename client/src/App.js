@@ -10,8 +10,9 @@ import HelmetHead from "./components/Helmet";
 import Layout from "./components/Layout";
 
 import theme from "./theme";
+import "./assets/global.css";
 
-const FECTH_USER = gql`
+const FETCH_USER = gql`
   query fetchUser {
     user {
       name
@@ -24,13 +25,13 @@ function App() {
   const client = useApolloClient();
   const { updateUser } = useContext(UserContext);
 
-  const { loading, error } = useQuery(FECTH_USER, {
+  const { loading, error } = useQuery(FETCH_USER, {
     onCompleted: ({ user }) => {
       updateUser(user);
     },
   });
 
-  if (loading) return <div>Loading</div>;
+  // if (loading) return <div>Loading</div>;
   if (error) console.log(error);
 
   return (

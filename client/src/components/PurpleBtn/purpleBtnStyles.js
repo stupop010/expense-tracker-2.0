@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
     color: theme.palette.common.white,
     padding: theme.spacing(1.3, 0),
-    height: console.log(theme),
     "&:hover": {
       backgroundColor: theme.palette.primary.dark,
       cursor: "pointer",

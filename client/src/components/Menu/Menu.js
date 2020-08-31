@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
@@ -53,6 +54,10 @@ const Menu = ({ user }) => {
       )}
     </Box>
   );
+};
+
+Menu.prototype = {
+  user: PropTypes.object.isRequired,
 };
 
 export default Menu;

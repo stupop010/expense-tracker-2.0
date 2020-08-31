@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import { useLocation, Link } from "react-router-dom";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -33,7 +33,7 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
   const { pathname } = useLocation();
   const classes = useStyles();
 
-  const [deleteExpense, { loading, error }] = useMutation(DELETE_EXPENSE);
+  const [deleteExpense] = useMutation(DELETE_EXPENSE);
 
   const reverseExpense = useMemo(() => {
     return expenses.reverse();
@@ -144,6 +144,7 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
           </TableFooter>
         </Table>
       </TableContainer>
+
       <Modal
         open={editModal}
         handleClose={() => setEditModal(false)}
@@ -151,6 +152,7 @@ const ExpenseTable = ({ expenses, deleteContextExpense }) => {
       >
         <EditExpense id={currentExpense} setEditModal={setEditModal} />
       </Modal>
+
       <Modal
         open={open}
         handleClose={handleModalClose}

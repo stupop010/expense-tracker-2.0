@@ -1,8 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +45,10 @@ const DashboardBreadcrumbs = ({ pathname, children }) => {
       {children}
     </div>
   );
+};
+
+DashboardBreadcrumbs.propTypes = {
+  pathname: PropTypes.string.isRequired,
 };
 
 export default DashboardBreadcrumbs;

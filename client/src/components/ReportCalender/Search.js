@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { useStyles } from "./reportCalenderStyles";
 
@@ -26,6 +27,11 @@ const Search = ({ calendarValue, search }) => {
       </div>
     </div>
   );
+};
+
+Search.propTypes = {
+  calendarValue: PropTypes.arrayOf(PropTypes.string).isRequired,
+  search: PropTypes.func.isRequired,
 };
 
 export default Search;

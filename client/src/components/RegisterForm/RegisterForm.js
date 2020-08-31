@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -40,55 +41,67 @@ const RegisterForm = ({ createUser, loading, error }) => {
 
   return (
     <Box className={classes.root}>
-      <div className={classes.formContainer}>
-        <div className={classes.form}>
-          <Typography variant="h3">Sign up</Typography>
-          {isError && <ErrorMessage error={isError} />}
-          <form onSubmit={submit}>
-            <CssTextField
-              label="Name"
-              variant="outlined"
-              name="name"
-              type="text"
-              className={classes.input}
-              onChange={onChange}
-            />
-            <CssTextField
-              label="Email Address"
-              variant="outlined"
-              name="email"
-              type="email"
-              className={classes.input}
-              onChange={onChange}
-            />
-            <CssTextField
-              label="Password"
-              variant="outlined"
-              name="password"
-              type="password"
-              className={classes.input}
-              onChange={onChange}
-            />
-            <CssTextField
-              label="Confirm Password"
-              variant="outlined"
-              name="password2"
-              type="password"
-              className={classes.input}
-              onChange={onChange}
-            />
-            <PurpleBtn type="submit" className={classes.btn}>
-              create account
-            </PurpleBtn>
-          </form>
-          <Divider />
-          <Link to="/login" className={classes.link}>
-            Have a account?
-          </Link>
+      <div className={classes.fullHeight}>
+        <div className={classes.formContainer}>
+          <div className={classes.form}>
+            <Typography variant="h3">Sign up</Typography>
+            {isError && <ErrorMessage error={isError} />}
+            <form onSubmit={submit}>
+              <CssTextField
+                label="Name"
+                variant="outlined"
+                name="name"
+                type="text"
+                className={classes.input}
+                onChange={onChange}
+              />
+              <CssTextField
+                label="Email Address"
+                variant="outlined"
+                name="email"
+                type="email"
+                className={classes.input}
+                onChange={onChange}
+              />
+              <CssTextField
+                label="Password"
+                variant="outlined"
+                name="password"
+                type="password"
+                className={classes.input}
+                onChange={onChange}
+              />
+              <CssTextField
+                label="Confirm Password"
+                variant="outlined"
+                name="password2"
+                type="password"
+                className={classes.input}
+                onChange={onChange}
+              />
+              <PurpleBtn type="submit" className={classes.btn}>
+                create account
+              </PurpleBtn>
+            </form>
+            <Divider />
+            <Link to="/login" className={classes.link}>
+              Have a account?
+            </Link>
+          </div>
         </div>
       </div>
     </Box>
   );
+};
+
+RegisterForm.propTypes = {
+  createUser: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+};
+
+RegisterForm.defaultProps = {
+  error: "",
 };
 
 export default RegisterForm;

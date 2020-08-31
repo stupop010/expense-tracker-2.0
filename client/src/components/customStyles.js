@@ -1,6 +1,5 @@
 import { withStyles, makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
 
 export const CssTextField = withStyles({
   root: {
@@ -66,6 +65,11 @@ export const authFormStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.background.dark,
     flex: 1,
+    overflow: "hidden",
+  },
+  fullHeight: {
+    minHeight: "100vh",
+    paddingTop: theme.spacing(10),
   },
   formContainer: {
     position: "relative",
@@ -74,7 +78,7 @@ export const authFormStyles = makeStyles((theme) => ({
     background: "#292D3D",
     borderRadius: "3px",
     boxShadow: theme.shadows[4],
-    margin: theme.spacing(10, "auto"),
+    margin: "auto",
   },
   form: {
     padding: theme.spacing(5, 2),

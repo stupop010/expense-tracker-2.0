@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import PropTypes from "prop-types";
 import { useLazyQuery } from "@apollo/react-hooks";
 
 import Popover from "@material-ui/core/Popover";
@@ -10,7 +11,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 import { ExpenseContext } from "../../context/expenseContext/ExpenseState";
-import { SEARCH_DATES, SEARCH_DATE } from "../../graphQL/querys";
+import { SEARCH_DATES } from "../../graphQL/querys";
 
 import Search from "./Search";
 
@@ -26,7 +27,7 @@ const CalenderData = ({ dates, setDates }) => {
 
   const { fetchExpenses } = useContext(ExpenseContext);
 
-  const [getSearchDates, { loading, data }] = useLazyQuery(SEARCH_DATES, {
+  const [getSearchDates, { loading }] = useLazyQuery(SEARCH_DATES, {
     partialRefetch: true,
     onCompleted: ({ searchDates }) => {
       fetchExpenses(searchDates);
@@ -121,6 +122,11 @@ const CalenderData = ({ dates, setDates }) => {
       </div>
     </div>
   );
+};
+
+CalenderData.propTypes = {
+  dates: PropTypes.string.isRequired,
+  setDates: PropTypes.func.isRequired,
 };
 
 export default CalenderData;

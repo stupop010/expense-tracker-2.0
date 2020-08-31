@@ -10,11 +10,10 @@ import Register from "../pages/Register";
 import Logout from "../pages/Logout";
 import PrivateRoute from "./PrivateRoute";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   layout: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "100vh",
     overflow: "hidden",
   },
 }));
@@ -30,9 +29,6 @@ const Layout = () => {
           <PrivateRoute path="/dashboard">
             <Dashboard />
           </PrivateRoute>
-          {/* <Route path="/dashboard">
-            <Dashboard />
-          </Route> */}
           <Route path="/login" exact>
             <SignIn />
           </Route>

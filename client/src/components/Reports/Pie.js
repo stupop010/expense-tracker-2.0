@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import * as d3 from "d3";
 
 import useStyles from "./reportsStyles";
@@ -71,6 +72,12 @@ const Pie = ({ data, width, height }) => {
       </Tooltip>
     </>
   );
+};
+
+Pie.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
 };
 
 export default Pie;

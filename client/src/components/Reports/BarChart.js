@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import {
   select,
   axisBottom,
@@ -85,6 +86,10 @@ const BarChart = ({ data }) => {
       </Tooltip>
     </div>
   );
+};
+
+BarChart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default BarChart;

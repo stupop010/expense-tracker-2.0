@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 import useStyles from "./reportsStyles";
 
@@ -31,6 +32,10 @@ const InfoData = ({ data }) => {
       </ul>
     </div>
   );
+};
+
+InfoData.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default InfoData;

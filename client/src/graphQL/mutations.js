@@ -46,6 +46,12 @@ export const EDIT_EXPENSE = gql`
   }
 `;
 
+export const DELETE_EXPENSE = gql`
+  mutation deleteExpense($id: Int!) {
+    deleteExpense(id: $id)
+  }
+`;
+
 export const CREATE_USER = gql`
   mutation createUser($email: String!, $password: String!, $name: String!) {
     createUser(name: $name, email: $email, password: $password) {
@@ -54,8 +60,12 @@ export const CREATE_USER = gql`
   }
 `;
 
-export const DELETE_EXPENSE = gql`
-  mutation deleteExpense($id: Int!) {
-    deleteExpense(id: $id)
+export const SIGN_IN = gql`
+  mutation signIn($email: String!, $password: String!) {
+    signIn(email: $email, password: $password) {
+      name
+      email
+      token
+    }
   }
 `;

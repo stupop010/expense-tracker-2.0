@@ -9,12 +9,14 @@ import { CREATE_USER } from "../graphQL/mutations";
 const Register = () => {
   const { updateUser } = useContext(UserContext);
 
-  const [createUser, { error }] = useMutation(CREATE_USER, {
+  const [createUser, { error, loading }] = useMutation(CREATE_USER, {
     onCompleted: ({ createUser }) => {
       updateUser(createUser);
     },
   });
-  return <RegisterForm createUser={createUser} error={error} />;
+  return (
+    <RegisterForm createUser={createUser} error={error} loading={loading} />
+  );
 };
 
 export default Register;

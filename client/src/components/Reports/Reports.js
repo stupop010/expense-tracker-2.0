@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 
 import useStyles from "./reportsStyles";
@@ -44,6 +45,10 @@ const Reports = ({ expenses }) => {
       </div>
     </div>
   );
+};
+
+Reports.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Reports;
