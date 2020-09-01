@@ -1,7 +1,7 @@
 import ApolloClient from "apollo-boost";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4040/graphql",
+  uri: "https://calm-fortress-42398.herokuapp.com/graphql",
   request: async (operation) => {
     const token = localStorage.getItem("token");
     try {
