@@ -18,7 +18,7 @@ const LandingPage = () => {
             </Typography>
           </Box>
           <div className={classes.container}>
-            <img src={landingImg}></img>
+            <img src={landingImg} alt="expense tracker dashboard"></img>
           </div>
         </div>
       </Box>

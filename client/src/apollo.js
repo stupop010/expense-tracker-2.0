@@ -16,15 +16,10 @@ const client = new ApolloClient({
   },
   onError: ({ networkError, graphQLErrors }) => {
     if (graphQLErrors) {
-      graphQLErrors.map(({ message, locations, path }) => {
+      // eslint-disable-next-line
+      return graphQLErrors.map(({ message, locations, path }) => {
         console.log(`GraphQL Error: ${message}`);
         if (message.includes("Not authenticated.")) {
-          //   cache.writeData({
-          //     data: {
-          //       isLoggedIn: false,
-          //     },
-          //   });
-          //   return localStorage.removeItem("token");
         }
       });
     }

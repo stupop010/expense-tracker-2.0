@@ -13,7 +13,7 @@ const Logout = () => {
     resetExpense();
 
     localStorage.removeItem("token");
-  }, []);
+  }, [logoutUser, resetExpense]);
 
   return <Redirect to="/" />;
 };

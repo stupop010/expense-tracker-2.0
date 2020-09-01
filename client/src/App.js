@@ -1,6 +1,5 @@
-import React, { useEffect, useContext } from "react";
-import { gql } from "apollo-boost";
-import { useQuery, useApolloClient } from "@apollo/react-hooks";
+import React, { useContext } from "react";
+import { useQuery } from "@apollo/react-hooks";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
@@ -9,23 +8,14 @@ import { UserContext } from "./context/userContext/UserState";
 import HelmetHead from "./components/Helmet";
 import Layout from "./components/Layout";
 
+import { FETCH_USER } from "./graphQL/querys";
 import theme from "./theme";
 import "./assets/global.css";
 
-const FETCH_USER = gql`
-  query fetchUser {
-    user {
-      name
-      email
-    }
-  }
-`;
-
 function App() {
-  const client = useApolloClient();
   const { updateUser } = useContext(UserContext);
 
-  const { loading, error } = useQuery(FETCH_USER, {
+  const { error } = useQuery(FETCH_USER, {
     onCompleted: ({ user }) => {
       updateUser(user);
     },

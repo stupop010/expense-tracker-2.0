@@ -1,5 +1,14 @@
 import { gql } from "apollo-boost";
 
+export const FETCH_USER = gql`
+  query fetchUser {
+    user {
+      name
+      email
+    }
+  }
+`;
+
 export const FIND_EXPENSE = gql`
   query findExpense($id: Int!) {
     findExpense(id: $id) {

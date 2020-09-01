@@ -6,7 +6,7 @@ const HelmetHead = () => {
     <Helmet>
       <meta charSet="utf-8" />
       <title>Expense Tracker</title>
-
+      <meta name="description" content="To keep take of all your expenses" />
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
