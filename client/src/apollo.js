@@ -17,7 +17,7 @@ const client = new ApolloClient({
   onError: ({ networkError, graphQLErrors }) => {
     if (graphQLErrors) {
       // eslint-disable-next-line
-      return graphQLErrors.map(({ message, locations, path }) => {
+      graphQLErrors.map(({ message, locations, path }) => {
         console.log(`GraphQL Error: ${message}`);
         if (message.includes("Not authenticated.")) {
         }

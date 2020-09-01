@@ -39,7 +39,7 @@ export const months = [
   "Jun",
   "Jul",
   "Aug",
-  "Set",
+  "Sep",
   "Oct",
   "Nov",
   "Dec",

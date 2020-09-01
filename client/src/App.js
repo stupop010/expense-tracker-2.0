@@ -22,7 +22,7 @@ function App() {
   });
 
   // if (loading) return <div>Loading</div>;
-  if (error) console.log(error);
+  if (error) console.log("Not authenticated");
 
   return (
     <ThemeProvider theme={theme}>

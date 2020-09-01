@@ -21,9 +21,9 @@ const InfoData = ({ data }) => {
     <div className={classes.infoContainer}>
       <h3>Total Expenses: £{totalExpense}</h3>
       <ul>
-        {data.map((e) => {
+        {data.map((e, i) => {
           return (
-            <li>
+            <li key={i}>
               - {e.category}: £
               {e.value.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </li>

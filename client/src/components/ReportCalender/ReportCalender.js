@@ -28,7 +28,7 @@ const CalenderData = ({ dates, setDates }) => {
   const { fetchExpenses } = useContext(ExpenseContext);
 
   const [getSearchDates] = useLazyQuery(SEARCH_DATES, {
-    partialRefetch: true,
+    fetchPolicy: "no-cache",
     onCompleted: ({ searchDates }) => {
       fetchExpenses(searchDates);
 
